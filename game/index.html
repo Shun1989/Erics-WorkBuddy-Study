@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>九重登仙路 · 万工界</title>
+<style>
+  :root{
+    --ink:#0d0f14; --ink2:#141823; --ink3:#1b2230;
+    --gold:#d8b266; --gold-hi:#f5d696; --jade:#b0c4be; --grey:#9aa2ae;
+    --red:#b23a34; --line:rgba(216,178,102,.25);
+    --card:rgba(255,255,255,.04); --card-b:rgba(216,178,102,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 50% -10%, rgba(216,178,102,.10), transparent 60%),
+      linear-gradient(180deg,var(--ink) 0%, #0a0c11 60%, var(--ink) 100%);
+    color:#e8eaee; font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;
+    min-height:100%; overflow-x:hidden;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:18px 16px 90px;}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 2px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:linear-gradient(180deg,var(--ink),rgba(13,15,20,.85));z-index:30;backdrop-filter:blur(6px);}
+  .brand{font-family:"STKaiti","KaiTi",serif;font-size:22px;color:var(--gold);letter-spacing:2px;}
+  .brand small{display:block;font-size:11px;color:var(--grey);letter-spacing:3px;font-family:"Microsoft YaHei";}
+  .nav{display:flex;gap:8px;}
+  .nav button{background:var(--card);border:1px solid var(--card-b);color:var(--jade);font-size:13px;padding:7px 12px;border-radius:20px;cursor:pointer;transition:.2s;}
+  .nav button:hover{color:var(--gold);border-color:var(--gold);}
+  .view{display:none;animation:fade .4s ease;}
+  .view.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  h1,h2,h3{font-family:"STKaiti","KaiTi",serif;font-weight:normal;}
+  .center{text-align:center;}
+  .gold{color:var(--gold);} .jade{color:var(--jade);} .grey{color:var(--grey);}
+
+  /* 启程 */
+  .hero{padding:34px 10px 10px;text-align:center;}
+  .hero h1{font-size:46px;color:var(--gold);text-shadow:0 0 22px rgba(216,178,102,.35);letter-spacing:6px;}
+  .hero .sub{margin-top:10px;color:var(--jade);font-size:15px;letter-spacing:1px;}
+  .hero .desc{margin:22px auto;max-width:620px;color:var(--grey);line-height:1.9;font-size:14px;}
+  .bigbtn{display:inline-block;margin:10px 8px;padding:14px 30px;border-radius:30px;font-size:16px;cursor:pointer;border:1px solid var(--gold);background:linear-gradient(180deg,rgba(216,178,102,.22),rgba(216,178,102,.06));color:var(--gold-hi);letter-spacing:2px;transition:.25s;font-family:"STKaiti",serif;}
+  .bigbtn:hover{background:linear-gradient(180deg,rgba(216,178,102,.4),rgba(216,178,102,.12));transform:translateY(-2px);box-shadow:0 8px 30px rgba(216,178,102,.25);}
+  .bigbtn.ghost{border-color:var(--card-b);color:var(--jade);background:var(--card);}
+
+  /* 测灵根 */
+  .qcard{background:var(--card);border:1px solid var(--card-b);border-radius:16px;padding:20px;margin:14px 0;}
+  .qcard .qt{color:var(--gold);font-size:16px;margin-bottom:14px;}
+  .opt{display:block;padding:12px 14px;margin:8px 0;border:1px solid rgba(255,255,255,.08);border-radius:10px;cursor:pointer;transition:.15s;font-size:14px;color:#d4d8de;}
+  .opt:hover{border-color:var(--gold);}
+  .opt.sel{background:rgba(216,178,102,.14);border-color:var(--gold);color:var(--gold-hi);}
+  .result{text-align:center;padding:26px;background:radial-gradient(400px 200px at 50% 0,rgba(216,178,102,.16),transparent);border:1px solid var(--card-b);border-radius:18px;margin-top:10px;}
+  .result .rt{font-family:"STKaiti",serif;font-size:40px;color:var(--gold);letter-spacing:4px;}
+  .result .rd{margin-top:12px;color:var(--jade);line-height:1.9;font-size:14px;}
+
+  /* 九重天地图 */
+  .path{position:relative;margin-top:14px;}
+  .lv{display:flex;gap:14px;align-items:stretch;margin:12px 0;background:var(--card);border:1px solid var(--card-b);border-radius:14px;padding:14px;cursor:pointer;transition:.2s;position:relative;overflow:hidden;}
+  .lv:hover{border-color:var(--gold);transform:translateX(3px);}
+  .lv.locked{opacity:.45;filter:grayscale(.6);cursor:not-allowed;}
+  .lv.done{border-color:rgba(120,200,140,.4);}
+  .lv .num{font-family:"STKaiti",serif;font-size:34px;color:var(--gold);min-width:54px;text-align:center;line-height:1.1;}
+  .lv .num small{display:block;font-size:11px;color:var(--grey);font-family:"Microsoft YaHei";}
+  .lv .body{flex:1;}
+  .lv .body h3{font-size:20px;color:#f0e6d0;margin-bottom:4px;}
+  .lv .body p{color:var(--grey);font-size:13px;line-height:1.6;}
+  .lv .badge{position:absolute;right:14px;top:14px;font-size:12px;padding:3px 10px;border-radius:14px;}
+  .badge.done{background:rgba(120,200,140,.18);color:#9fe0b0;}
+  .badge.cur{background:rgba(216,178,102,.2);color:var(--gold-hi);}
+  .badge.lock{background:rgba(255,255,255,.06);color:var(--grey);}
+
+  /* 关卡详情 */
+  .back{display:inline-block;margin:6px 0 14px;color:var(--jade);cursor:pointer;font-size:13px;}
+  .back:hover{color:var(--gold);}
+  .lvtitle{font-size:30px;color:var(--gold);font-family:"STKaiti",serif;letter-spacing:3px;}
+  .lvtline{color:var(--jade);margin:8px 0 18px;font-size:14px;}
+  .stage{background:var(--card);border:1px solid var(--card-b);border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:16px 18px;margin:12px 0;}
+  .stage .sh{color:var(--gold);font-size:16px;margin-bottom:8px;font-family:"STKaiti",serif;letter-spacing:2px;}
+  .stage .sh small{color:var(--grey);font-family:"Microsoft YaHei";font-size:11px;margin-left:8px;letter-spacing:0;}
+  .stage p{color:#d4d8de;line-height:1.9;font-size:14px;}
+  .code{background:#0a0c11;border:1px solid rgba(216,178,102,.25);border-radius:10px;padding:14px;margin:10px 0;color:var(--gold-hi);font-family:"Consolas",monospace;font-size:13px;line-height:1.7;white-space:pre-wrap;}
+  .xu{background:linear-gradient(90deg,rgba(176,196,190,.12),transparent);border-left:3px solid var(--jade);padding:10px 14px;margin:10px 0;border-radius:0 8px 8px 0;color:var(--jade);font-size:13px;font-style:italic;}
+  .check li{list-style:none;padding:7px 0 7px 30px;position:relative;color:#d4d8de;font-size:14px;border-bottom:1px dashed rgba(255,255,255,.07);}
+  .check li:before{content:"○";position:absolute;left:4px;color:var(--gold);}
+  .check li.ok:before{content:"●";color:#9fe0b0;}
+  .passbtn{margin-top:16px;width:100%;padding:14px;border-radius:12px;border:1px solid var(--gold);background:linear-gradient(180deg,rgba(216,178,102,.22),rgba(216,178,102,.06));color:var(--gold-hi);font-size:16px;cursor:pointer;letter-spacing:2px;font-family:"STKaiti",serif;}
+  .passbtn:hover{background:rgba(216,178,102,.34);}
+  .passbtn:disabled{opacity:.5;cursor:default;}
+
+  /* 图鉴 */
+  .jxgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:12px;}
+  .jx{background:var(--card);border:1px solid var(--card-b);border-radius:12px;padding:14px;text-align:center;min-height:96px;display:flex;flex-direction:column;justify-content:center;}
+  .jx.lock{opacity:.35;}
+  .jx .jt{color:var(--gold);font-family:"STKaiti",serif;font-size:17px;margin-bottom:6px;}
+  .jx .jd{color:var(--grey);font-size:12px;line-height:1.5;}
+  .sectitle{margin:24px 0 4px;color:var(--gold);font-size:18px;font-family:"STKaiti",serif;letter-spacing:2px;border-bottom:1px solid var(--line);padding-bottom:8px;}
+
+  /* 分享卡 */
+  .sharebox{text-align:center;}
+  #shareCanvas{max-width:100%;border-radius:14px;border:1px solid var(--card-b);box-shadow:0 10px 40px rgba(0,0,0,.4);margin-top:10px;}
+  .dlbtn{margin-top:14px;display:inline-block;padding:12px 26px;border-radius:24px;border:1px solid var(--gold);color:var(--gold-hi);background:rgba(216,178,102,.12);cursor:pointer;font-size:14px;letter-spacing:1px;}
+  .dlbtn:hover{background:rgba(216,178,102,.28);}
+  .progressbar{height:8px;background:rgba(255,255,255,.07);border-radius:6px;overflow:hidden;margin:14px 0;}
+  .progressbar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-hi));transition:.5s;}
+  .hint{color:var(--grey);font-size:12px;margin-top:8px;line-height:1.7;}
+  .footer{text-align:center;color:var(--grey);font-size:12px;margin-top:30px;line-height:1.8;border-top:1px solid var(--line);padding-top:16px;}
+  .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:rgba(20,24,35,.95);border:1px solid var(--gold);color:var(--gold-hi);padding:12px 22px;border-radius:24px;font-size:14px;opacity:0;transition:.3s;z-index:99;pointer-events:none;}
+  .toast.show{opacity:1;}
+  @media(max-width:560px){.hero h1{font-size:34px;}.lv .num{font-size:26px;min-width:42px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">九重登仙路<small>万工界 · WAN GONG REALM</small></div>
+    <div class="nav">
+      <button onclick="go('home')">启程</button>
+      <button onclick="go('map')">九重天</button>
+      <button onclick="go('codex')">图鉴</button>
+      <button onclick="go('checkin')">打卡</button>
+      <button onclick="go('share')">分享卡</button>
+    </div>
+  </div>
+
+  <!-- 启程 -->
+  <div id="home" class="view active">
+    <div class="hero">
+      <h1>九重登仙路</h1>
+      <div class="sub">一个对 AI 一无所知的人，如何炼成高手</div>
+      <div class="desc">
+        万工界被<b class="gold">噪潮</b>淹没——无来源、无验收的信息铺天盖地。
+        更深的<b class="gold">镜渊</b>里，藏着看着对、却追不回验不了的答案。<br><br>
+        你叫<b class="jade">无名学徒</b>。身边有纸甲机灵<b class="jade">小序</b>相伴，
+        执灯师为你掌灯。九步登天，从装好一个助手，走到把方法传给别人。
+      </div>
+      <button class="bigbtn" onclick="go('quiz')">测灵根 · 认自己</button>
+      <button class="bigbtn ghost" onclick="go('map')">入九重天 · 闯关</button>
+    </div>
+    <div class="progressbar"><i id="homeProg" style="width:0%"></i></div>
+    <p class="center grey" id="homeStat" style="font-size:13px"></p>
+  </div>
+
+  <!-- 测灵根 -->
+  <div id="quiz" class="view">
+    <h2 class="center gold" style="font-size:26px;margin-bottom:6px">测灵根</h2>
+    <p class="center grey" style="font-size:13px;margin-bottom:8px">上路前，先认清自己。五问定灵根。</p>
+    <div id="quizBox"></div>
+    <div id="quizResult" style="display:none"></div>
+    <div class="center" id="quizActions" style="display:none;margin-top:6px">
+      <button class="bigbtn" onclick="go('map')">带着灵根 · 入九重天</button>
+    </div>
+  </div>
+
+  <!-- 九重天地图 -->
+  <div id="map" class="view">
+    <h2 class="center gold" style="font-size:26px">九重天 · 境界地图</h2>
+    <p class="center grey" style="font-size:13px;margin:6px 0 4px" id="mapHint"></p>
+    <div class="path" id="pathBox"></div>
+  </div>
+
+  <!-- 关卡详情 -->
+  <div id="level" class="view">
+    <span class="back" onclick="go('map')">← 返回九重天</span>
+    <div id="levelBox"></div>
+  </div>
+
+  <!-- 图鉴 -->
+  <div id="codex" class="view">
+    <h2 class="center gold" style="font-size:26px">图鉴 · 道果收藏</h2>
+    <p class="center grey" style="font-size:13px;margin:6px 0 4px">每通关一重，便点亮一件法器、一道功法、一枚道果。</p>
+    <div id="codexBox"></div>
+  </div>
+
+  <!-- 小红书打卡 -->
+  <div id="checkin" class="view">
+    <h2 class="center gold" style="font-size:26px">实操打卡 · 小红书副本</h2>
+    <p class="center grey" style="font-size:13px;margin:6px 0 14px">每通一关，去小红书交副本。截图成果 + 一句心得，带上话题，执灯师给你盖章。</p>
+    <div class="qcard" style="text-align:center">
+      <div class="qt" style="margin-bottom:14px">第一步：进话题，看别人怎么交</div>
+      <a class="bigbtn" href="https://www.xiaohongshu.com/user/profile/103365713" target="_blank" rel="noopener" style="text-decoration:none">打开小红书 · 关注 @Eric_网瘾中年_AI探路者</a>
+      <p class="hint" style="margin-top:12px">手机上打开小红书，搜索 <b class="gold">#九重登仙路</b> 或关注执灯师账号 <b class="gold">@Eric_网瘾中年_AI探路者</b>，置顶笔记有完整玩法说明与测灵根入口。</p>
+    </div>
+    <div id="checkinBox"></div>
+    <div class="qcard" style="margin-top:16px">
+      <div class="qt">第二步：发笔记交副本（格式）</div>
+      <p style="color:#d4d8de;line-height:1.9;font-size:14px">
+        1. 截图你在真实助手里的成果（注意脱敏：手机号、金额、客户名打码）。<br>
+        2. 写一句心得，模板：<b class="gold">以前____，现在____</b>。<br>
+        3. 带话题 <b class="gold">#九重登仙路</b> <b class="gold">#WorkBuddy实战</b>，发布即可。<br>
+        4. 回到游戏本关点“标记通关”，把道果收进图鉴。
+      </p>
+      <button class="bigbtn ghost" style="margin-top:10px" onclick="go('map')">去九重天 · 开始交副本</button>
+    </div>
+  </div>
+
+  <!-- 分享卡 -->
+  <div id="share" class="view">
+    <h2 class="center gold" style="font-size:26px">分享卡 · 你的修道路</h2>
+    <div class="sharebox">
+      <canvas id="shareCanvas" width="800" height="1180"></canvas>
+      <div><button class="dlbtn" onclick="downloadCard()">下载分享卡</button></div>
+      <p class="hint">保存图片，发到朋友圈 / 小红书，带话题 #九重登仙路，找同路人。</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    九重登仙路 · 万工界原创修仙教学体系 ｜ 实操打卡版：每关副本在真实助手完成，截图回传小红书 #九重登仙路<br>
+    游戏分享链接：<b class="gold">https://f4a0061fd6ba4365841c118d390e2249.bj6.agentos-app.net</b><br>
+    本游戏为教学演示，所有案例均为安全素材（周报 / 数据表 / 文件归档 / 自动化 / 技能包）。顺为凡，逆则仙。
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ 数据 ============ */
+const LEVELS = [
+  {id:0, name:"启机", en:"Awaken", line:"建立第一个可工作的助手连接，完成一项最小真实任务。",
+    trib:"装了一堆花哨工具，却没真正用它干过一件正事——你只是“拥有”了 AI，没“用过”AI。",
+    method:"一句话呼神术：把助手当新来的实习生，把话说全。",
+    contract:"你是【角色】，帮我做【事情】，\n要求：1）… 2）… 3）…\n交付形式：【…】",
+    dungeon:"副本：打开你的助手，给它一份你这周的零碎事项，让它写出一段像样的周报开头。",
+    fruit:"道果：一段能直接用的周报开头。",
+    xu:"小序：先别追新玩具。把一个助手用熟，比装十个都强。",
+    faqi:"对话窗", gongfa:"呼神术", dao:"周报开头"},
+  {id:1, name:"立契", en:"Contract", line:"把模糊需求改写成目标、输入、限制、交付清楚的工契。",
+    trib:"需求说不清，助手答非所问，你反过来怪它笨——其实病根在你没把话说清楚。",
+    method:"工契四要素：目标 + 输入 + 限制 + 交付。四样齐，结果才稳。",
+    contract:"【目标】整理销售表\n【输入】monthly.xlsx\n【限制】只看华东区、不改动原表\n【交付】一张按金额排序的新表 + 三句话结论",
+    dungeon:"副本：把一句“帮我整理下这些数据”，改写成一份四要素齐全的工契。",
+    fruit:"道果：一份能复用的工契模板。",
+    xu:"小序：模糊的需求养不出好结果，清晰的工契才是真本事。",
+    faqi:"工契模板", gongfa:"立契四要素", dao:"工契模板"},
+  {id:2, name:"藏识", en:"Store", line:"让文件、知识、来源和版本可以被正确寻找与追溯。",
+    trib:"上次那个好用的文件，改了三版之后，再也找不到“能用那一版”了。",
+    method:"命名 + 归档 + 来源标注三件套。版本用日期，来源写一处。",
+    contract:"【命名】2026客户清单_v3_已核验\n【归档】00_素材/客户/\n【来源】出处写在文件头三行",
+    dungeon:"副本：给你一批散乱文件，建一套“看得懂、找得到、追得回”的命名与目录。",
+    fruit:"道果：一套你自己的知识归档规范。",
+    xu:"小序：记不住的东西，就让它能被搜到。记忆不在脑子里，在体系里。",
+    faqi:"记忆/知识库", gongfa:"三件套归档", dao:"归档规范"},
+  {id:3, name:"铸法", en:"Forge", line:"把一次成功整理为可重复的模板与批处理方法。",
+    trib:"同样的事每次从头来，效率永远卡在第一次，成功经验带不到第二次。",
+    method:"把成功的步骤拆成模板 + 批量脚本，一次写好，百次复用。",
+    contract:"【模板】周报结构.md\n【批量】把 12 个原始表套进同一模板\n【输出】12 份统一格式的成品",
+    dungeon:"副本：选一个你每周都做的重复任务，做成可批处理的模板。",
+    fruit:"道果：一个可复用模板 / 批处理流程。",
+    xu:"小序：会一次不稀奇，次次都对才叫功法。",
+    faqi:"模板引擎", gongfa:"铸法批处理", dao:"可复用模板"},
+  {id:4, name:"化身", en:"Avatar", line:"把明确任务交给受约束的定时或自动流程执行。",
+    trib:"明明能自动的活，你天天手动点，时间都耗在“记得去做”上。",
+    method:"定时任务 + 明确边界：什么能做、什么不能做，先写清楚再放手。",
+    contract:"【任务】每天 9 点生成昨日数据简报\n【边界】只读数、不发送、出错就告警\n【交付】一份存好的简报",
+    dungeon:"副本：把一份“每天手动做”的日报，设成定时自动生成。",
+    fruit:"道果：一条跑通的自动化。",
+    xu:"小序：你该去想大事，重复活交给化身。但边界，永远你定。",
+    faqi:"定时触发器", gongfa:"化身自动化", dao:"自动化流程"},
+  {id:5, name:"渡错", en:"Mend", line:"通过复现、定位、修复、复验处理失败，不隐藏失败。",
+    trib:"它出错了，你删掉重来，问题还在。下次照样翻车，因为没人记录过原因。",
+    method:"劫痕四步：复现 → 定位 → 修复 → 复验。每一次失败都该留下道据。",
+    contract:"【复现】同样输入必现\n【定位】第 3 步空值\n【修复】加默认值\n【复验】重跑 5 次通过",
+    dungeon:"副本：记录一次真实报错，写成一张劫痕卡（复现+原因+修复+复验）。",
+    fruit:"道果：一张劫痕卡。",
+    xu:"小序：错不可怕，藏着错才可怕。把失败摊开，它就是下一步的台阶。",
+    faqi:"劫痕记录", gongfa:"渡错四步", dao:"劫痕卡"},
+  {id:6, name:"成术", en:"Skill", line:"把个人经验做成他人可以安装、理解和验证的 Skill。",
+    trib:"你的独门经验只在你脑子里，你一休假，整条线停摆，谁都接不住。",
+    method:"把经验写成 Skill：说明 + 输入 + 步骤 + 验收，让人装了就会用。",
+    contract:"【名称】会议纪要整理术\n【输入】录音转写文本\n【步骤】1 提炼结论 2 列待办 3 排跟踪\n【验收】输出含结论+待办+责任人",
+    dungeon:"副本：把一个你常用的小工作流，封装成一个可安装的 Skill。",
+    fruit:"道果：一个可安装的 Skill。",
+    xu:"小序：会做的人很多，能把“怎么做”写清楚的人稀缺。写成术，你就超越了你自己。",
+    faqi:"技能封装", gongfa:"成术封装", dao:"可安装技能"},
+  {id:7, name:"众智", en:"Council", line:"让多个角色或 Agent 在权限、交付和验收清楚下协作。",
+    trib:"一个大任务一个人扛，又慢又漏，瓶颈永远是你自己的时间和注意力。",
+    method:"拆角色 + 定交付 + 设验收门。每人只对自己那段负责。",
+    contract:"【角色】调研 / 写作 / 核查\n【交付】各自产出，互不过界\n【验收门】结论须有来源、待办须有责任人",
+    dungeon:"副本：把一个项目拆成多角色协作，各自交付、统一验收。",
+    fruit:"道果：一套多角色协作方案。",
+    xu:"小序：一个人走得快，一群各司其职的人走得远。众智不是堆人，是分清楚谁负责什么。",
+    faqi:"协作编排", gongfa:"众智分工", dao:"协作方案"},
+  {id:8, name:"传灯", en:"Lamp", line:"公开可复现的方法，帮助另一位学习者完成真实交付。",
+    trib:"你学会了，却说不清怎么教别人——知识停在“我会”，没到“我能让人会”。",
+    method:"把路径写成别人能跟做的教程：目标 + 素材 + 步骤 + 验收，开源出去。",
+    contract:"【目标】十分钟做出周报开头\n【素材】附一份示例\n【步骤】截图级指引\n【验收】读者照做能交付",
+    dungeon:"副本：写一份带素材包的迷你教程，让别人照着也能做出道果。",
+    fruit:"道果：一份可复现的公开教程（你成了传灯者）。",
+    xu:"小序：教是最好的学。当你能把别人点亮，你自己早已登顶。顺为凡，逆则仙。",
+    faqi:"开源教程", gongfa:"传灯之法", dao:"公开教程"},
+];
+
+const QUIZ = [
+  {q:"接到一个说不清的任务，你第一反应是？",
+   o:[["先动手做，做错再改","火"],["先把需求问清楚再动","水"],["列个清单一步步推","土"],["直接找人讨论定方向","雷"]]},
+  {q:"助手给的答案不太对，你会？",
+   o:[["将就用，赶时间","火"],["对照来源逐条核对","水"],["记下来下次避免","土"],["换个问法直接怼回去","雷"]]},
+  {q:"一堆重复表格每周都做，你？",
+   o:[["忍了，手动点完","火"],["想办法一次批量解决","土"],["找工具但怕麻烦","水"],["直接写个自动流程","雷"]]},
+  {q:"学一个新工具，你更看重？",
+   o:[["马上能用出效果","火"],["理解底层逻辑","水"],["稳定不出岔子","土"],["能不能改造得更猛","雷"]]},
+  {q:"你想成为哪种修士？",
+   o:[["冲在最前的锐士","火"],["看透全局的谋者","水"],["根基扎实的匠人","土"],["破局的变法者","雷"]]},
+];
+const ROOTS = {
+  土:{t:"厚土灵根", d:"你是稳行的土。根基派，看重可复现与不出错。九重路上，你最适合从藏识、铸法起跳，把每一次成功都夯实成体系。"},
+  火:{t:"烈火灵根", d:"你是锐进的火。上手快、见效猛，别让急躁毁了验收。你适合从启机直冲化身，用速度碾压重复活，但记得每关留道据。"},
+  水:{t:"通玄灵根", d:"你是通变的水。善解人意、懂底层，最会立契与渡错。你从立契起步最快，把模糊变清晰，是你天生的功法。"},
+  雷:{t:"破雷灵根", d:"你是破局的雷。不满足现状，敢改造敢自动化。众智与成术是你的主场，把经验封装出去，你就是传灯者。"},
+};
+
+/* ============ 存档 ============ */
+const KEY="jiuchong_save_v1";
+let S = load();
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return{}}}
+function save(){localStorage.setItem(KEY, JSON.stringify(S));}
+S.done = S.done||[]; S.codex = S.codex||{}; S.xu = S.xu||[];
+
+/* ============ 视图 ============ */
+function go(v){
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  document.getElementById(v).classList.add('active');
+  if(v==='home') renderHome();
+  if(v==='map') renderMap();
+  if(v==='codex') renderCodex();
+  if(v==='checkin') renderCheckin();
+  if(v==='share') drawCard();
+  if(v==='quiz' && !S.quizDone) renderQuiz();
+  window.scrollTo(0,0);
+}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);}
+
+function renderHome(){
+  const n=S.done.length;
+  document.getElementById('homeProg').style.width=(n/9*100)+'%';
+  document.getElementById('homeStat').textContent = S.root ? `灵根：${ROOTS[S.root].t} ｜ 已通关 ${n}/9 重` : `尚未测灵根 ｜ 已通关 ${n}/9 重`;
+}
+function isUnlocked(i){return i===0 || S.done.includes(i-1);}
+
+/* ============ 测灵根 ============ */
+let qa=[];
+function renderQuiz(){
+  qa=[];
+  const box=document.getElementById('quizBox'); box.style.display='block';
+  document.getElementById('quizResult').style.display='none';
+  document.getElementById('quizActions').style.display='none';
+  box.innerHTML=QUIZ.map((it,i)=>`
+    <div class="qcard">
+      <div class="qt">第 ${i+1} 问 · ${it.q}</div>
+      ${it.o.map((o,j)=>`<div class="opt" onclick="pick(${i},${j},this)">${o[0]}</div>`).join('')}
+    </div>`).join('') + `<div class="center"><button class="bigbtn" onclick="finishQuiz()" ${qa.length<5?'disabled style=opacity:.5':''}>算出我的灵根</button></div>`;
+}
+function pick(qi,ji,el){
+  qa[qi]=QUIZ[qi].o[ji][1];
+  const card=el.closest('.qcard');
+  card.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+  el.classList.add('sel');
+  const btn=document.querySelector('#quizBox .bigbtn');
+  if(qa.filter(x=>x).length>=5) btn.disabled=false, btn.style.opacity=1;
+}
+function finishQuiz(){
+  const c={土:0,火:0,水:0,雷:0}; qa.forEach(x=>c[x]++);
+  let best='土',mx=-1; for(const k in c){if(c[k]>mx){mx=c[k];best=k;}}
+  S.root=best; S.quizDone=true; save();
+  const r=ROOTS[best];
+  const box=document.getElementById('quizResult');
+  box.style.display='block';
+  box.innerHTML=`<div class="result"><div class="rt">${r.t}</div><div class="rd">${r.d}</div></div>`;
+  document.getElementById('quizActions').style.display='block';
+  toast('灵根已测定：'+r.t);
+}
+
+/* ============ 九重天地图 ============ */
+function renderMap(){
+  const box=document.getElementById('pathBox');
+  const cur = (()=>{for(let i=0;i<9;i++){if(!S.done.includes(i))return i;}return 9;})();
+  document.getElementById('mapHint').textContent = S.root? `灵根：${ROOTS[S.root].t} ｜ 当前可闯：第 ${cur<9?cur+1:9} 重` : '建议先去测灵根，认准自己的起跳点';
+  box.innerHTML=LEVELS.map((L,i)=>{
+    const unlocked=isUnlocked(i), done=S.done.includes(i);
+    const badge = done?`<span class="badge done">已通关</span>`:(unlocked?`<span class="badge cur">可闯</span>`:`<span class="badge lock">未解锁</span>`);
+    return `<div class="lv ${unlocked?'':'locked'} ${done?'done':''}" onclick="${unlocked?`openLevel(${i})`:`toast('先通关前一重')`}">
+      <div class="num">${i+1}<small>${L.en}</small></div>
+      <div class="body"><h3>${L.name} · ${L.en}</h3><p>${L.line}</p></div>
+      ${badge}
+    </div>`;
+  }).join('');
+}
+function openLevel(i){S.curLevel=i;renderLevel();go('level');}
+
+/* ============ 关卡详情 ============ */
+function renderLevel(){
+  const i=S.curLevel, L=LEVELS[i], done=S.done.includes(i), unlocked=isUnlocked(i);
+  const box=document.getElementById('levelBox');
+  box.innerHTML=`
+    <div class="lvtitle">第 ${i+1} 重 · ${L.name}</div>
+    <div class="lvtline">${L.line}</div>
+    <div class="stage"><div class="sh">劫难 <small>TRIAL · 你正被困在哪</small></div><p>${L.trib}</p></div>
+    <div class="stage"><div class="sh">功法 <small>METHOD · 通关之法</small></div><p>${L.method}</p>
+      <div class="code">${L.contract}</div></div>
+    <div class="stage"><div class="sh">副本 <small>DUNGEON · 实操打卡</small></div><p>${L.dungeon}</p>
+      <p class="grey" style="font-size:12px">↳ 在真实助手里完成，截图回传小红书 <b class="gold">#九重登仙路</b> 打卡，由执灯师盖章认证。</p></div>
+    <div class="stage"><div class="sh">验收门 <small>GATE · 通关条件</small></div>
+      <ul class="check">
+        <li class="${done?'ok':''}">完成副本，拿到你的 ${L.dao}</li>
+        <li class="${done?'ok':''}">能用自己的话讲清这一重的功法</li>
+        <li class="${done?'ok':''}">截图打卡已提交</li>
+      </ul></div>
+    <div class="xu">${L.xu}</div>
+    ${done?`<button class="passbtn" disabled>✔ 本重已通关 · ${L.dao} 已入图鉴</button>`
+          :`<button class="passbtn" ${unlocked?'':'disabled'} onclick="passLevel(${i})">${unlocked?'标记通关 · 领取道果':'先通关前一重'}</button>`}
+  `;
+}
+function passLevel(i){
+  if(!isUnlocked(i)||S.done.includes(i))return;
+  S.done.push(i);
+  S.codex[i]={faqi:LEVELS[i].faqi, gongfa:LEVELS[i].gongfa, dao:LEVELS[i].dao};
+  save();
+  toast('通关第'+(i+1)+'重 · '+LEVELS[i].dao+' 已入图鉴');
+  renderLevel(); renderHome();
+}
+
+/* ============ 图鉴 ============ */
+function renderCodex(){
+  const box=document.getElementById('codexBox');
+  const kinds=[['法器图鉴','faqi'],['功法图鉴','gongfa'],['道果图鉴','dao']];
+  let html='';
+  kinds.forEach(([title,key])=>{
+    html+=`<div class="sectitle">${title}</div><div class="jxgrid">`;
+    LEVELS.forEach((L,i)=>{
+      const got=S.codex[i]&&S.codex[i][key];
+      html+=`<div class="jx ${got?'':'lock'}"><div class="jt">${got?L[key]:'？？'}</div><div class="jd">${got?('第'+(i+1)+'重 · '+L.name):'未点亮'}</div></div>`;
+    });
+    html+='</div>';
+  });
+  box.innerHTML=html;
+}
+
+/* ============ 小红书打卡 ============ */
+function renderCheckin(){
+  const box=document.getElementById('checkinBox');
+  box.innerHTML=LEVELS.map((L,i)=>{
+    const done=S.done.includes(i);
+    return `<div class="lv ${done?'done':''}" style="cursor:default">
+      <div class="num">${i+1}<small>${L.en}</small></div>
+      <div class="body">
+        <h3>${L.name} · 副本任务书</h3>
+        <p style="color:#d4d8de;font-size:13px;line-height:1.7;margin:6px 0">${L.dungeon}</p>
+        <p class="grey" style="font-size:12px">↳ 在真实助手完成，截图发小红书 <b class="gold">#九重登仙路</b>，执灯师盖章。</p>
+        <p class="grey" style="font-size:12px;margin-top:4px">${done?'✔ 已通关 · 道果已入图鉴':'○ 待交副本'}</p>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ============ 分享卡 ============ */
+function drawCard(){
+  const cv=document.getElementById('shareCanvas'), x=cv.getContext('2d');
+  const W=800,H=1180;
+  // 背景
+  let g=x.createLinearGradient(0,0,0,H); g.addColorStop(0,'#0d0f14');g.addColorStop(.5,'#161b27');g.addColorStop(1,'#0a0c11');
+  x.fillStyle=g; x.fillRect(0,0,W,H);
+  // 星点
+  for(let i=0;i<90;i++){x.fillStyle='rgba(220,225,235,'+(Math.random()*.12)+')';x.beginPath();x.arc(Math.random()*W,Math.random()*H*.7,Math.random()*1.6,0,7);x.fill();}
+  // 远山
+  x.fillStyle='rgba(18,22,30,.9)';x.beginPath();x.moveTo(0,H);for(let i=0;i<=10;i++){x.lineTo(i*80,H-120-Math.sin(i*1.3)*60- (i%2?30:0));}x.lineTo(W,H);x.fill();
+  // 边框
+  x.strokeStyle='rgba(216,178,102,.5)';x.lineWidth=2;x.strokeRect(24,24,W-48,H-48);
+  // 标题
+  x.textAlign='center';
+  x.fillStyle='#d8b266';x.font='40px STKaiti, KaiTi, serif';
+  x.fillText('九重登仙路',W/2,120);
+  x.fillStyle='#9aa2ae';x.font='15px Microsoft YaHei';
+  x.fillText('WAN GONG REALM · 万工界修仙教学',W/2,150);
+  // 灵根
+  const root = S.root? ROOTS[S.root].t : '未测灵根';
+  x.fillStyle='#f5d696';x.font='26px STKaiti, KaiTi, serif';
+  x.fillText('灵根 · '+root, W/2, 220);
+  // 称号
+  const n=S.done.length;
+  const titles=['未入门','启机学徒','立契学徒','藏识学徒','铸法修士','化身修士','渡错修士','成术真人','众智真人','传灯大能'];
+  x.fillStyle='#b0c4be';x.font='22px STKaiti, KaiTi, serif';
+  x.fillText('境界称号 · '+titles[n], W/2, 270);
+  // 九重进度
+  const startY=340, gap=82;
+  LEVELS.forEach((L,i)=>{
+    const y=startY+i*gap; const done=S.done.includes(i);
+    x.beginPath();x.arc(90,y,16,0,7);x.fillStyle=done?'#d8b266':'rgba(255,255,255,.12)';x.fill();
+    if(done){x.fillStyle='#0d0f14';x.font='18px Microsoft YaHei';x.textAlign='center';x.fillText('✓',90,y+6);}
+    x.textAlign='left';x.fillStyle=done?'#f0e6d0':'#6b7280';x.font='22px STKaiti, KaiTi, serif';
+    x.fillText(`第${i+1}重 ${L.name}`,125,y+7);
+    x.fillStyle='#9aa2ae';x.font='13px Microsoft YaHei';
+    x.fillText(done?('道果：'+L.dao):'未通关',125,y+28);
+  });
+  // 底部
+  x.textAlign='center';x.fillStyle='#d8b266';x.font='20px STKaiti, KaiTi, serif';
+  x.fillText('顺为凡，逆则仙',W/2,H-70);
+  x.fillStyle='#9aa2ae';x.font='14px Microsoft YaHei';
+  x.fillText('#九重登仙路  ·  扫码进游戏，从第一重启机开始',W/2,H-44);
+}
+function downloadCard(){
+  const cv=document.getElementById('shareCanvas');
+  const a=document.createElement('a');a.download='九重登仙路_分享卡.png';a.href=cv.toDataURL('image/png');a.click();
+  toast('分享卡已保存');
+}
+
+/* 启动 */
+renderHome();
+</script>
+</body>
+</html>

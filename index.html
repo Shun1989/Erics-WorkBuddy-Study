@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>九重登仙路 · 用修仙的方式学 WorkBuddy</title>
+<style>
+  :root{
+    --ink:#0d0e16; --ink2:#151724; --panel:#1b1d2e;
+    --gold:#d8b461; --gold2:#f0d89a; --txt:#e6e7ee; --grey:#9aa0b4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Songti SC","STSong","SimSun",serif;background:
+    radial-gradient(1200px 600px at 50% -10%, #20233a 0%, var(--ink) 60%);
+    color:var(--txt);line-height:1.7;min-height:100vh;}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px 80px;}
+  header{padding:64px 0 36px;text-align:center;}
+  .seal{display:inline-block;border:1px solid var(--gold);color:var(--gold2);
+    padding:4px 14px;border-radius:4px;font-size:13px;letter-spacing:3px;opacity:.9;}
+  h1{font-size:46px;margin:18px 0 10px;color:var(--gold2);
+    text-shadow:0 2px 24px rgba(216,180,97,.25);letter-spacing:6px;}
+  .sub{color:var(--grey);font-size:16px;max-width:620px;margin:0 auto;}
+  .cta{display:flex;gap:16px;justify-content:center;margin-top:30px;flex-wrap:wrap;}
+  .btn{padding:13px 30px;border-radius:30px;text-decoration:none;font-size:16px;
+    transition:.2s;letter-spacing:1px;}
+  .btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a1407;font-weight:700;}
+  .btn.ghost{border:1px solid var(--gold);color:var(--gold2);}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(216,180,97,.25);}
+  section{margin-top:54px;}
+  h2{font-size:24px;color:var(--gold2);letter-spacing:3px;margin-bottom:18px;
+    border-left:3px solid var(--gold);padding-left:12px;}
+  p.lead{color:var(--grey);margin-bottom:14px;}
+  /* 九重天 */
+  .map{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .node{background:var(--panel);border:1px solid #2c2f44;border-radius:12px;
+    padding:18px 14px;text-align:center;position:relative;overflow:hidden;}
+  .node b{display:block;color:var(--gold2);font-size:18px;letter-spacing:2px;}
+  .node span{color:var(--grey);font-size:13px;}
+  .node::after{content:"";position:absolute;inset:0;background:
+    radial-gradient(120px 60px at 50% 120%, rgba(216,180,97,.12), transparent);}
+  /* 五卷 */
+  .vol{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:8px;}
+  .vcard{background:var(--panel);border:1px solid #2c2f44;border-radius:10px;padding:16px;}
+  .vcard .t{color:var(--gold2);font-size:16px;}
+  .vcard .d{color:var(--grey);font-size:13px;margin-top:4px;}
+  .tag{display:inline-block;font-size:12px;padding:2px 9px;border-radius:20px;
+    background:rgba(216,180,97,.14);color:var(--gold2);margin-top:8px;}
+  .tag.live{background:rgba(120,200,140,.16);color:#8fd6a4;}
+  /* 打卡 */
+  .check{background:var(--panel);border:1px solid #2c2f44;border-radius:14px;
+    padding:28px;text-align:center;}
+  .check .id{color:var(--gold2);font-size:20px;letter-spacing:1px;}
+  .gh{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:16px;}
+  footer{margin-top:60px;text-align:center;color:var(--grey);font-size:13px;
+    border-top:1px solid #23263a;padding-top:24px;}
+  a.in{color:var(--gold2);text-decoration:none;border-bottom:1px dashed var(--gold);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="seal">万工界 · 无名学徒修行录</span>
+    <h1>九重登仙路</h1>
+    <p class="sub">不神化、不割韭菜。用修仙的外壳，把「普通人怎么把 AI 助手用起来」拆成一条能走通的路。一个网页小游戏，加 65 支以上的实战视频。</p>
+    <div class="cta">
+      <a class="btn gold" href="https://f4a0061fd6ba4365841c118d390e2249.bj6.agentos-app.net">▶ 开玩修炼游戏</a>
+      <a class="btn ghost" href="#vol">看视频系列</a>
+    </div>
+  </header>
+
+  <section id="map">
+    <h2>九重天 · 修行地图</h2>
+    <p class="lead">游戏把学习路径做成九重关卡，每过一关解锁一类实战能力。先去测你的灵根，找到最适合的入手方向。</p>
+    <div class="map">
+      <div class="node"><b>启机</b><span>装好第一件法器</span></div>
+      <div class="node"><b>立契</b><span>开口说第一句话</span></div>
+      <div class="node"><b>藏识</b><span>建起你的知识库</span></div>
+      <div class="node"><b>铸法</b><span>把套路做成技能</span></div>
+      <div class="node"><b>化身</b><span>让 AI 替你跑腿</span></div>
+      <div class="node"><b>渡错</b><span>报错也能自救</span></div>
+      <div class="node"><b>成术</b><span>搭起自动化流水线</span></div>
+      <div class="node"><b>众智</b><span>一支 AI 小队协同</span></div>
+      <div class="node"><b>传灯</b><span>把经验讲给别人</span></div>
+    </div>
+  </section>
+
+  <section id="vol">
+    <h2>视频系列 · 五卷六十二支</h2>
+    <p class="lead">按学习顺序分五卷，每支末尾都有一份可复用的「掉落物」和「下集预告」。卷一已上线，卷二至卷五陆续发布。</p>
+    <div class="vol">
+      <div class="vcard"><div class="t">卷一 认知篇</div><div class="d">EP01-06 · 破除神秘</div><span class="tag live">已上线</span></div>
+      <div class="vcard"><div class="t">卷二 入门篇</div><div class="d">EP07-18 · 真正用起来</div><span class="tag">制作中</span></div>
+      <div class="vcard"><div class="t">卷三 进阶篇</div><div class="d">EP19-32 · 自动化</div><span class="tag">制作中</span></div>
+      <div class="vcard"><div class="t">卷四 高手篇</div><div class="d">EP33-44 · 系统化</div><span class="tag">规划中</span></div>
+      <div class="vcard"><div class="t">卷五 收官</div><div class="d">EP45-62+ · 变现外延</div><span class="tag">规划中</span></div>
+    </div>
+  </section>
+
+  <section id="check">
+    <h2>小红书打卡 · 找同路人</h2>
+    <div class="check">
+      <p class="lead">每过一关，把成果发到小红书，和一群同样在探路的人互相看作业。</p>
+      <p class="id">@Eric_网瘾中年_AI探路者</p>
+      <div class="gh">
+        <a class="btn gold" href="https://www.xiaohongshu.com/user/profile/103365713">打开小红书 · 关注打卡</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="open">
+    <h2>开源仓库 · 一起共建</h2>
+    <p class="lead">全套口播稿、脱敏练习素材包、游戏源码都放在开源仓库，MIT 协议，可自由取用与改造。</p>
+    <p style="text-align:center">仓库：<a class="in" href="https://github.com/YOUR_GITHUB_ID/Erics-WorkBuddy-Study">Erics-WorkBuddy-Study</a>（上线后替换为你的用户名）</p>
+  </section>
+
+  <footer>
+    <p>本页所有练习数据均为虚构脱敏内容，不含任何真实企业或产品信息。</p>
+    <p style="margin-top:6px">© 2026 Eric（网瘾中年 / AI 探路者）· MIT License</p>
+  </footer>
+
+</div>
+</body>
+</html>

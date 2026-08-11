@@ -1,0 +1,17 @@
+# 系统文件
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# 编辑器临时文件
+*.swp
+*~
+*.tmp
+
+# 日志
+*.log
+
+# 真实业务素材（含在研产品信息）严禁提交
+# 本仓库只收脱敏后的 assets/ 内容
+*真实素材*
+*internal_*
