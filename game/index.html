@@ -401,7 +401,7 @@ footer { display: flex; justify-content: space-between; gap: 30px; padding: 34px
 
     <dialog id="onboarding-dialog" class="game-dialog">
       <form method="dialog" id="onboarding-form">
-        <button class="dialog-close" value="cancel" aria-label="关闭测灵根">×</button>
+        <button class="dialog-close" id="close-onboarding" type="button" aria-label="关闭测灵根">×</button>
         <p class="eyebrow">序章 · 雾港登记处 <span id="onboarding-progress">1 / 4</span></p>
         <section class="onboarding-step" data-onboarding-step="0">
           <h2>欢迎，无名学徒</h2>
@@ -491,13 +491,13 @@ footer { display: flex; justify-content: space-between; gap: 30px; padding: 34px
     advancedAccessEnabled: false,
     links: Object.freeze({
       advancedApplication: null,
-      courseHome: null,
-      sourceRepository: null
+      courseHome: "../practice/",
+      sourceRepository: "https://github.com/Shun1989/Erics-WorkBuddy-Study"
     }),
     linkLabels: Object.freeze({
       advancedApplication: "进阶带练申请入口待 Eric 配置",
-      courseHome: "课程主页待配置",
-      sourceRepository: "源代码仓库待配置"
+      courseHome: "前三重免费练习材料",
+      sourceRepository: "GitHub 源代码仓库"
     })
   });
 })(window);
@@ -740,7 +740,7 @@ window.GAME_LEVELS = Object.freeze([{"id":"realm-01","order":1,"publicName":"启
     if (!value) return null;
     try {
       const url = new URL(value, global.location.href);
-      return ["http:", "https:"].includes(url.protocol) ? url.href : null;
+      return ["http:", "https:", "file:"].includes(url.protocol) ? url.href : null;
     } catch {
       return null;
     }
@@ -1089,6 +1089,7 @@ window.GAME_LEVELS = Object.freeze([{"id":"realm-01","order":1,"publicName":"启
     $("#start-journey").addEventListener("click", () => openOnboarding(true));
     $("#continue-journey").addEventListener("click", () => $("#view-map").scrollIntoView({ behavior: "smooth" }));
     $("#close-level").addEventListener("click", () => $("#level-dialog").close());
+    $("#close-onboarding").addEventListener("click", () => $("#onboarding-dialog").close());
     $("#open-save").addEventListener("click", () => $("#save-dialog").showModal());
     $("#close-save").addEventListener("click", () => $("#save-dialog").close());
 
