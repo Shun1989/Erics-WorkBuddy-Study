@@ -1,508 +1,1225 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>九重登仙路 · 万工界</title>
-<style>
-  :root{
-    --ink:#0d0f14; --ink2:#141823; --ink3:#1b2230;
-    --gold:#d8b266; --gold-hi:#f5d696; --jade:#b0c4be; --grey:#9aa2ae;
-    --red:#b23a34; --line:rgba(216,178,102,.25);
-    --card:rgba(255,255,255,.04); --card-b:rgba(216,178,102,.18);
-  }
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-  html,body{height:100%;}
-  body{
-    background:
-      radial-gradient(1200px 600px at 50% -10%, rgba(216,178,102,.10), transparent 60%),
-      linear-gradient(180deg,var(--ink) 0%, #0a0c11 60%, var(--ink) 100%);
-    color:#e8eaee; font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;
-    min-height:100%; overflow-x:hidden;
-  }
-  .wrap{max-width:960px;margin:0 auto;padding:18px 16px 90px;}
-  .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 2px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:linear-gradient(180deg,var(--ink),rgba(13,15,20,.85));z-index:30;backdrop-filter:blur(6px);}
-  .brand{font-family:"STKaiti","KaiTi",serif;font-size:22px;color:var(--gold);letter-spacing:2px;}
-  .brand small{display:block;font-size:11px;color:var(--grey);letter-spacing:3px;font-family:"Microsoft YaHei";}
-  .nav{display:flex;gap:8px;}
-  .nav button{background:var(--card);border:1px solid var(--card-b);color:var(--jade);font-size:13px;padding:7px 12px;border-radius:20px;cursor:pointer;transition:.2s;}
-  .nav button:hover{color:var(--gold);border-color:var(--gold);}
-  .view{display:none;animation:fade .4s ease;}
-  .view.active{display:block;}
-  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
-  h1,h2,h3{font-family:"STKaiti","KaiTi",serif;font-weight:normal;}
-  .center{text-align:center;}
-  .gold{color:var(--gold);} .jade{color:var(--jade);} .grey{color:var(--grey);}
+  <head>
+    <!-- PUBLIC_RELEASE_BUILD:c090f81f6033b0b6 -->
+    <meta name="release-channel" content="public-sanitized" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101d2c" />
+    <meta
+      name="description"
+      content="《九重登仙路》任务导航器：在万工界完成可验证、可复现的 AI 实战任务。"
+    />
+    <title>九重登仙路｜万工界任务导航器</title>
+    <style>
+:root {
+  --ink: #17202a;
+  --muted: #64707d;
+  --night: #101d2c;
+  --night-soft: #1b3046;
+  --paper: #f4efe3;
+  --paper-deep: #e8dfcf;
+  --white: #fffdf8;
+  --cinnabar: #b84a34;
+  --cinnabar-dark: #8f3324;
+  --jade: #287568;
+  --gold: #bd8c3e;
+  --line: rgba(23, 32, 42, 0.16);
+  --shadow: 0 18px 60px rgba(16, 29, 44, 0.13);
+  --radius: 20px;
+  color-scheme: light;
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", SimSun, serif;
+}
 
-  /* 启程 */
-  .hero{padding:34px 10px 10px;text-align:center;}
-  .hero h1{font-size:46px;color:var(--gold);text-shadow:0 0 22px rgba(216,178,102,.35);letter-spacing:6px;}
-  .hero .sub{margin-top:10px;color:var(--jade);font-size:15px;letter-spacing:1px;}
-  .hero .desc{margin:22px auto;max-width:620px;color:var(--grey);line-height:1.9;font-size:14px;}
-  .bigbtn{display:inline-block;margin:10px 8px;padding:14px 30px;border-radius:30px;font-size:16px;cursor:pointer;border:1px solid var(--gold);background:linear-gradient(180deg,rgba(216,178,102,.22),rgba(216,178,102,.06));color:var(--gold-hi);letter-spacing:2px;transition:.25s;font-family:"STKaiti",serif;}
-  .bigbtn:hover{background:linear-gradient(180deg,rgba(216,178,102,.4),rgba(216,178,102,.12));transform:translateY(-2px);box-shadow:0 8px 30px rgba(216,178,102,.25);}
-  .bigbtn.ghost{border-color:var(--card-b);color:var(--jade);background:var(--card);}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% 8%, rgba(184, 74, 52, 0.08), transparent 28rem),
+    linear-gradient(rgba(23, 32, 42, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 32, 42, 0.02) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 32px 32px, 32px 32px, auto;
+  min-height: 100vh;
+}
+button, input, textarea, select { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 3px solid rgba(40, 117, 104, 0.38);
+  outline-offset: 3px;
+}
+button:disabled { cursor: not-allowed; opacity: 0.48; }
 
-  /* 测灵根 */
-  .qcard{background:var(--card);border:1px solid var(--card-b);border-radius:16px;padding:20px;margin:14px 0;}
-  .qcard .qt{color:var(--gold);font-size:16px;margin-bottom:14px;}
-  .opt{display:block;padding:12px 14px;margin:8px 0;border:1px solid rgba(255,255,255,.08);border-radius:10px;cursor:pointer;transition:.15s;font-size:14px;color:#d4d8de;}
-  .opt:hover{border-color:var(--gold);}
-  .opt.sel{background:rgba(216,178,102,.14);border-color:var(--gold);color:var(--gold-hi);}
-  .result{text-align:center;padding:26px;background:radial-gradient(400px 200px at 50% 0,rgba(216,178,102,.16),transparent);border:1px solid var(--card-b);border-radius:18px;margin-top:10px;}
-  .result .rt{font-family:"STKaiti",serif;font-size:40px;color:var(--gold);letter-spacing:4px;}
-  .result .rd{margin-top:12px;color:var(--jade);line-height:1.9;font-size:14px;}
+.skip-link { position: fixed; left: 12px; top: -60px; z-index: 100; background: var(--white); padding: 12px 18px; color: var(--night); }
+.skip-link:focus { top: 12px; }
+.sr-live { position: fixed; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.site-header {
+  position: sticky; top: 0; z-index: 20;
+  display: grid; grid-template-columns: 1fr auto auto; gap: 26px; align-items: center;
+  min-height: 76px; padding: 10px clamp(20px, 5vw, 72px);
+  color: var(--white); background: rgba(16, 29, 44, 0.96); backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+.brand { display: inline-flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: fit-content; }
+.brand-mark, .reward-symbol {
+  display: grid; place-items: center; width: 42px; height: 42px; flex: 0 0 auto;
+  border: 1px solid currentColor; border-radius: 50%; color: #f1c474;
+}
+.brand-mark { font-weight: 700; }
+.brand strong, .brand small { display: block; }
+.brand strong { letter-spacing: .12em; }
+.brand small { margin-top: 3px; color: #b7c2ca; font: 12px/1.2 system-ui, sans-serif; letter-spacing: .08em; }
+.header-progress { min-width: 150px; font: 13px/1.2 system-ui, sans-serif; color: #d9e0e5; }
+.progress-track { margin-top: 7px; height: 3px; overflow: hidden; background: rgba(255,255,255,.15); }
+.progress-track span { display: block; height: 100%; width: 0; background: #f1c474; transition: width .35s ease; }
 
-  /* 九重天地图 */
-  .path{position:relative;margin-top:14px;}
-  .lv{display:flex;gap:14px;align-items:stretch;margin:12px 0;background:var(--card);border:1px solid var(--card-b);border-radius:14px;padding:14px;cursor:pointer;transition:.2s;position:relative;overflow:hidden;}
-  .lv:hover{border-color:var(--gold);transform:translateX(3px);}
-  .lv.locked{opacity:.45;filter:grayscale(.6);cursor:not-allowed;}
-  .lv.done{border-color:rgba(120,200,140,.4);}
-  .lv .num{font-family:"STKaiti",serif;font-size:34px;color:var(--gold);min-width:54px;text-align:center;line-height:1.1;}
-  .lv .num small{display:block;font-size:11px;color:var(--grey);font-family:"Microsoft YaHei";}
-  .lv .body{flex:1;}
-  .lv .body h3{font-size:20px;color:#f0e6d0;margin-bottom:4px;}
-  .lv .body p{color:var(--grey);font-size:13px;line-height:1.6;}
-  .lv .badge{position:absolute;right:14px;top:14px;font-size:12px;padding:3px 10px;border-radius:14px;}
-  .badge.done{background:rgba(120,200,140,.18);color:#9fe0b0;}
-  .badge.cur{background:rgba(216,178,102,.2);color:var(--gold-hi);}
-  .badge.lock{background:rgba(255,255,255,.06);color:var(--grey);}
+main, footer { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
+.hero { min-height: 650px; display: grid; grid-template-columns: 1.2fr .8fr; gap: clamp(40px, 8vw, 110px); align-items: center; padding: 80px 0 64px; }
+.eyebrow { margin: 0 0 12px; color: var(--cinnabar); font: 700 12px/1.4 system-ui, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+h1, h2, h3, p { margin-top: 0; }
+h1 { margin-bottom: 28px; font-size: clamp(44px, 7vw, 86px); line-height: 1.08; letter-spacing: -.045em; font-weight: 650; }
+h2 { font-size: clamp(32px, 5vw, 58px); line-height: 1.1; letter-spacing: -.035em; }
+h3 { line-height: 1.35; }
+.hero-intro { max-width: 680px; color: #44515e; font-size: clamp(17px, 2vw, 21px); line-height: 1.9; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+.primary-button, .secondary-button, .ghost-button, .danger-button, .file-button {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 20px;
+  border: 1px solid transparent; cursor: pointer; text-decoration: none; transition: transform .2s ease, background .2s ease;
+  font: 700 14px/1 system-ui, sans-serif; letter-spacing: .03em;
+}
+.primary-button { color: var(--white); background: var(--cinnabar); }
+.primary-button:hover { background: var(--cinnabar-dark); transform: translateY(-2px); }
+.secondary-button, .file-button { color: var(--night); border-color: var(--night); background: transparent; }
+.secondary-button:hover, .file-button:hover { color: var(--white); background: var(--night); }
+.ghost-button { color: var(--white); border-color: rgba(255,255,255,.3); background: transparent; }
+.danger-button { color: #8d281d; border-color: rgba(184,74,52,.4); background: #fff8f5; }
+.text-button { padding: 0 12px; color: var(--ink); border: 0; border-bottom: 1px solid var(--ink); background: transparent; cursor: pointer; }
+.inline-button { width: fit-content; }
+.world-law { position: relative; padding: 34px; color: var(--white); background: var(--night); box-shadow: var(--shadow); }
+.world-law::before { content: ""; position: absolute; inset: 10px; border: 1px solid rgba(241,196,116,.3); pointer-events: none; }
+.seal { color: #f1c474; font-size: 13px; letter-spacing: .14em; }
+.world-law ol { margin: 26px 0 0; padding: 0; list-style: none; counter-reset: law; }
+.world-law li { counter-increment: law; display: grid; grid-template-columns: 38px 1fr; gap: 12px; padding: 18px 0; border-top: 1px solid rgba(255,255,255,.12); }
+.world-law li::before { content: counter(law, decimal-leading-zero); color: #f1c474; font: 14px/1.5 system-ui,sans-serif; }
+.world-law strong, .world-law span { display: block; }
+.world-law span { margin-top: 5px; color: #bac6cf; font: 13px/1.5 system-ui,sans-serif; }
 
-  /* 关卡详情 */
-  .back{display:inline-block;margin:6px 0 14px;color:var(--jade);cursor:pointer;font-size:13px;}
-  .back:hover{color:var(--gold);}
-  .lvtitle{font-size:30px;color:var(--gold);font-family:"STKaiti",serif;letter-spacing:3px;}
-  .lvtline{color:var(--jade);margin:8px 0 18px;font-size:14px;}
-  .stage{background:var(--card);border:1px solid var(--card-b);border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:16px 18px;margin:12px 0;}
-  .stage .sh{color:var(--gold);font-size:16px;margin-bottom:8px;font-family:"STKaiti",serif;letter-spacing:2px;}
-  .stage .sh small{color:var(--grey);font-family:"Microsoft YaHei";font-size:11px;margin-left:8px;letter-spacing:0;}
-  .stage p{color:#d4d8de;line-height:1.9;font-size:14px;}
-  .code{background:#0a0c11;border:1px solid rgba(216,178,102,.25);border-radius:10px;padding:14px;margin:10px 0;color:var(--gold-hi);font-family:"Consolas",monospace;font-size:13px;line-height:1.7;white-space:pre-wrap;}
-  .xu{background:linear-gradient(90deg,rgba(176,196,190,.12),transparent);border-left:3px solid var(--jade);padding:10px 14px;margin:10px 0;border-radius:0 8px 8px 0;color:var(--jade);font-size:13px;font-style:italic;}
-  .check li{list-style:none;padding:7px 0 7px 30px;position:relative;color:#d4d8de;font-size:14px;border-bottom:1px dashed rgba(255,255,255,.07);}
-  .check li:before{content:"○";position:absolute;left:4px;color:var(--gold);}
-  .check li.ok:before{content:"●";color:#9fe0b0;}
-  .passbtn{margin-top:16px;width:100%;padding:14px;border-radius:12px;border:1px solid var(--gold);background:linear-gradient(180deg,rgba(216,178,102,.22),rgba(216,178,102,.06));color:var(--gold-hi);font-size:16px;cursor:pointer;letter-spacing:2px;font-family:"STKaiti",serif;}
-  .passbtn:hover{background:rgba(216,178,102,.34);}
-  .passbtn:disabled{opacity:.5;cursor:default;}
+.section-nav { display: flex; gap: 8px; overflow-x: auto; padding: 12px; background: rgba(255,253,248,.72); border: 1px solid var(--line); }
+.nav-tab { flex: 1 0 auto; min-width: 130px; padding: 14px 18px; border: 0; color: var(--muted); background: transparent; cursor: pointer; }
+.nav-tab.is-active { color: var(--white); background: var(--night); }
+.view { padding: 72px 0 100px; scroll-margin-top: 100px; }
+.section-heading { display: grid; grid-template-columns: 1fr minmax(260px, .7fr); gap: 40px; align-items: end; margin-bottom: 42px; }
+.section-heading h2 { margin-bottom: 0; }
+.section-heading > p { margin: 0; color: var(--muted); line-height: 1.8; }
 
-  /* 图鉴 */
-  .jxgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:12px;}
-  .jx{background:var(--card);border:1px solid var(--card-b);border-radius:12px;padding:14px;text-align:center;min-height:96px;display:flex;flex-direction:column;justify-content:center;}
-  .jx.lock{opacity:.35;}
-  .jx .jt{color:var(--gold);font-family:"STKaiti",serif;font-size:17px;margin-bottom:6px;}
-  .jx .jd{color:var(--grey);font-size:12px;line-height:1.5;}
-  .sectitle{margin:24px 0 4px;color:var(--gold);font-size:18px;font-family:"STKaiti",serif;letter-spacing:2px;border-bottom:1px solid var(--line);padding-bottom:8px;}
+.realm-path { position: relative; display: grid; gap: 14px; }
+.realm-path::before { content: ""; position: absolute; left: 52px; top: 30px; bottom: 30px; width: 1px; background: linear-gradient(var(--cinnabar), var(--gold), var(--jade)); }
+.realm-card {
+  position: relative; display: grid; grid-template-columns: 76px 1fr auto; gap: 24px; align-items: center;
+  min-height: 142px; padding: 24px 30px; background: rgba(255,253,248,.88); border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(16,29,44,.04);
+  transition: transform .2s ease, border-color .2s ease;
+}
+.realm-card:hover { transform: translateX(5px); border-color: rgba(184,74,52,.45); }
+.realm-number { z-index: 1; display: grid; place-items: center; width: 44px; height: 44px; color: var(--white); background: var(--night); border-radius: 50%; font: 700 13px/1 system-ui,sans-serif; }
+.realm-card.completed .realm-number { background: var(--jade); }
+.realm-card.advanced .realm-number { background: var(--gold); }
+.realm-card-copy p { margin-bottom: 6px; color: var(--cinnabar); font: 12px/1.4 system-ui,sans-serif; letter-spacing: .08em; }
+.realm-card-copy h3 { margin-bottom: 7px; font-size: 25px; }
+.realm-card-copy span { color: var(--muted); line-height: 1.6; }
+.realm-card-action { display: flex; align-items: center; gap: 18px; }
+.realm-card-action button { padding: 10px 0; color: var(--ink); border: 0; border-bottom: 1px solid var(--line); background: transparent; cursor: pointer; }
+.status-chip { padding: 6px 9px; color: var(--muted); border: 1px solid var(--line); font: 12px/1 system-ui,sans-serif; }
+.completed .status-chip { color: var(--jade); border-color: rgba(40,117,104,.35); }
+.advanced .status-chip { color: #8b641d; border-color: rgba(189,140,62,.45); }
 
-  /* 分享卡 */
-  .sharebox{text-align:center;}
-  #shareCanvas{max-width:100%;border-radius:14px;border:1px solid var(--card-b);box-shadow:0 10px 40px rgba(0,0,0,.4);margin-top:10px;}
-  .dlbtn{margin-top:14px;display:inline-block;padding:12px 26px;border-radius:24px;border:1px solid var(--gold);color:var(--gold-hi);background:rgba(216,178,102,.12);cursor:pointer;font-size:14px;letter-spacing:1px;}
-  .dlbtn:hover{background:rgba(216,178,102,.28);}
-  .progressbar{height:8px;background:rgba(255,255,255,.07);border-radius:6px;overflow:hidden;margin:14px 0;}
-  .progressbar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-hi));transition:.5s;}
-  .hint{color:var(--grey);font-size:12px;margin-top:8px;line-height:1.7;}
-  .footer{text-align:center;color:var(--grey);font-size:12px;margin-top:30px;line-height:1.8;border-top:1px solid var(--line);padding-top:16px;}
-  .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:rgba(20,24,35,.95);border:1px solid var(--gold);color:var(--gold-hi);padding:12px 22px;border-radius:24px;font-size:14px;opacity:0;transition:.3s;z-index:99;pointer-events:none;}
-  .toast.show{opacity:1;}
-  @media(max-width:560px){.hero h1{font-size:34px;}.lv .num{font-size:26px;min-width:42px;}}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <div class="topbar">
-    <div class="brand">九重登仙路<small>万工界 · WAN GONG REALM</small></div>
-    <div class="nav">
-      <button onclick="go('home')">启程</button>
-      <button onclick="go('map')">九重天</button>
-      <button onclick="go('codex')">图鉴</button>
-      <button onclick="go('checkin')">打卡</button>
-      <button onclick="go('share')">分享卡</button>
-    </div>
-  </div>
+.archive-grid, .collection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.archive-card, .collection-card, .scar-card, .empty-state { padding: 26px; background: rgba(255,253,248,.9); border: 1px solid var(--line); }
+.archive-card > span, .archive-card time, .collection-card small { color: var(--cinnabar); font: 12px/1.4 system-ui,sans-serif; letter-spacing: .07em; }
+.archive-card h3 { margin: 16px 0 12px; }
+.archive-card p { color: var(--muted); line-height: 1.7; }
+.collection-card { display: flex; gap: 20px; filter: grayscale(.9); opacity: .62; }
+.collection-card.unlocked { filter: none; opacity: 1; border-color: rgba(40,117,104,.35); }
+.reward-symbol { color: var(--gold); font-weight: 700; }
+.collection-card h3 { margin: 6px 0 9px; }
+.collection-card p { margin: 0; color: var(--muted); line-height: 1.6; }
+.empty-state { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--muted); }
+.empty-state strong { display: block; margin-bottom: 8px; color: var(--ink); font-size: 24px; }
 
-  <!-- 启程 -->
-  <div id="home" class="view active">
-    <div class="hero">
-      <h1>九重登仙路</h1>
-      <div class="sub">一个对 AI 一无所知的人，如何炼成高手</div>
-      <div class="desc">
-        万工界被<b class="gold">噪潮</b>淹没，无来源、无验收的信息铺天盖地。
-        更深的<b class="gold">镜渊</b>里，藏着看着对、却追不回验不了的答案。<br><br>
-        你叫<b class="jade">无名学徒</b>。身边有纸甲机灵<b class="jade">小序</b>相伴，
-        执灯师为你掌灯。九步登天，从装好一个助手，走到把方法传给别人。
+.panel-form, .scar-form { margin-top: 28px; padding: 30px; background: var(--paper-deep); border: 1px solid var(--line); }
+.panel-form { display: grid; grid-template-columns: 1.3fr 1fr auto; gap: 24px; align-items: end; }
+label { display: grid; gap: 9px; font: 700 13px/1.4 system-ui,sans-serif; color: #394553; }
+input, textarea, select { width: 100%; border: 1px solid rgba(23,32,42,.25); background: var(--white); padding: 12px 14px; color: var(--ink); }
+textarea { min-height: 100px; resize: vertical; line-height: 1.6; }
+.share-output { grid-column: 1 / -1; display: block; padding: 18px; color: var(--night); background: var(--white); border-left: 4px solid var(--jade); line-height: 1.8; }
+.share-output:empty { display: none; }
+.utility-row { display: flex; justify-content: space-between; align-items: end; gap: 18px; margin: 24px 0; padding: 18px; border: 1px solid var(--line); background: rgba(255,253,248,.72); }
+.utility-row label { flex: 1; max-width: 460px; }
+.scar-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.scar-form label:first-child, .scar-form button { grid-column: 1 / -1; }
+.scar-list { display: grid; gap: 16px; margin-top: 24px; }
+.scar-card > div { display: flex; justify-content: space-between; color: var(--muted); font: 12px/1 system-ui,sans-serif; }
+.scar-card button { color: var(--cinnabar); border: 0; background: transparent; cursor: pointer; }
+.scar-card dl { display: grid; grid-template-columns: 60px 1fr; gap: 10px 18px; margin-bottom: 0; }
+.scar-card dt { color: var(--cinnabar); font-weight: 700; }
+.scar-card dd { margin: 0; line-height: 1.65; }
+
+dialog { color: var(--ink); border: 0; box-shadow: 0 28px 100px rgba(3,11,19,.35); }
+dialog::backdrop { background: rgba(8,17,27,.74); backdrop-filter: blur(5px); }
+.game-dialog, .level-dialog { width: min(760px, calc(100% - 28px)); max-height: calc(100vh - 28px); padding: clamp(26px, 5vw, 54px); background: var(--paper); overflow-y: auto; }
+.level-dialog { width: min(940px, calc(100% - 28px)); }
+.dialog-close { position: sticky; float: right; top: 0; z-index: 2; width: 40px; height: 40px; color: var(--ink); border: 1px solid var(--line); background: var(--white); cursor: pointer; font-size: 24px; }
+.game-dialog form > p { color: var(--muted); line-height: 1.7; }
+.lead-copy { color: #3d4a58 !important; font-size: 18px; line-height: 1.9 !important; }
+.onboarding-step { clear: both; padding-top: 10px; }
+.onboarding-card, .privacy-note, .recommendation-card { margin: 22px 0; padding: 20px; background: var(--white); border-left: 4px solid var(--jade); line-height: 1.75; }
+.onboarding-card p, .privacy-note { margin-bottom: 0; }
+.onboarding-laws { margin: 22px 0; padding: 0; list-style: none; counter-reset: laws; }
+.onboarding-laws li { counter-increment: laws; display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding: 15px 0; border-top: 1px solid var(--line); }
+.onboarding-laws li::before { content: counter(laws, decimal-leading-zero); color: var(--cinnabar); font: 700 13px/1.5 system-ui,sans-serif; }
+.onboarding-laws strong, .onboarding-laws span { display: block; }
+.onboarding-laws span { margin-top: 4px; color: var(--muted); line-height: 1.6; }
+.recommendation-card { display: grid; gap: 8px; border-left-color: var(--gold); }
+.recommendation-card span { color: var(--muted); font: 12px/1.4 system-ui,sans-serif; letter-spacing: .08em; }
+.recommendation-card strong { font-size: 19px; line-height: 1.7; }
+.step-actions { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-top: 24px; }
+fieldset { display: grid; gap: 10px; margin: 22px 0; padding: 18px; border: 1px solid var(--line); }
+legend { padding: 0 8px; font-weight: 700; }
+fieldset label, .check-item, .certify { grid-template-columns: auto 1fr; align-items: start; }
+fieldset input, .check-item input, .certify input { width: auto; margin: 3px 0 0; }
+.level-header { padding-right: 50px; }
+.level-header h2 { margin-bottom: 10px; }
+.level-subtitle { color: var(--muted); font-size: 19px; }
+.story-block, .plot-clue { margin: 26px 0; padding: 24px; color: var(--white); background: var(--night); }
+.story-block span, .plot-clue strong { color: #f1c474; font: 700 12px/1.4 system-ui,sans-serif; letter-spacing: .12em; }
+.story-block p, .plot-clue p { margin: 10px 0 0; line-height: 1.85; }
+.level-section { padding: 28px 0; border-bottom: 1px solid var(--line); }
+.level-section h3 { font-size: 24px; }
+.goal-list { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none; }
+.goal-list li, .goal-chips span { padding: 8px 12px; color: var(--jade); background: rgba(40,117,104,.09); border: 1px solid rgba(40,117,104,.22); font: 13px/1.4 system-ui,sans-serif; }
+.steps-list { padding-left: 0; list-style: none; counter-reset: steps; }
+.steps-list li { counter-increment: steps; display: grid; grid-template-columns: 38px 1fr; gap: 14px; padding: 15px 0; border-top: 1px solid var(--line); line-height: 1.75; }
+.steps-list li::before { content: counter(steps, decimal-leading-zero); color: var(--cinnabar); font: 700 13px/1.75 system-ui,sans-serif; }
+.start-task { display: flex; justify-content: space-between; gap: 20px; align-items: center; margin: 18px 0; padding: 18px; color: var(--white); background: var(--night-soft); }
+.start-task p { margin: 0; line-height: 1.65; }
+.start-task button { flex: 0 0 auto; }
+.task-steps { display: grid; gap: 10px; margin: 18px 0; }
+.task-step { grid-template-columns: auto 42px 1fr; align-items: start; gap: 12px; padding: 16px; background: rgba(255,253,248,.78); border: 1px solid var(--line); font-family: inherit; font-size: 15px; line-height: 1.7; cursor: pointer; }
+.task-step input { width: auto; margin-top: 7px; }
+.task-step input:disabled { cursor: not-allowed; }
+.task-step.is-done { border-color: rgba(40,117,104,.4); background: rgba(40,117,104,.08); }
+.task-step.is-done > span:last-child { text-decoration: line-through; text-decoration-color: rgba(40,117,104,.4); }
+.step-index { color: var(--cinnabar); font: 700 13px/1.8 system-ui,sans-serif; }
+.step-progress { color: var(--muted); font: 13px/1.5 system-ui,sans-serif; text-align: right; }
+.asset-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.asset-row a, .placeholder-link { padding: 10px 12px; border: 1px dashed rgba(23,32,42,.28); color: var(--muted); font: 13px/1.4 system-ui,sans-serif; text-decoration: none; }
+.placeholder-link::before { content: "待配置 · "; color: var(--cinnabar); font-weight: 700; }
+.acceptance-form { display: grid; gap: 22px; margin: 30px 0; padding: 28px; background: var(--paper-deep); border: 1px solid var(--line); }
+.acceptance-form h3 { margin-bottom: 8px; }
+.acceptance-form p { color: var(--muted); line-height: 1.65; }
+.check-list { display: grid; gap: 10px; }
+.check-item { padding: 13px; background: rgba(255,253,248,.72); }
+.certify { padding: 14px; border-left: 3px solid var(--cinnabar); }
+.form-message, .status-message { min-height: 1.5em; margin: 0; color: var(--cinnabar-dark) !important; font-weight: 700; }
+.reward-preview { display: flex; gap: 24px; align-items: center; padding: 24px; border: 1px solid rgba(189,140,62,.4); background: rgba(189,140,62,.08); }
+.reward-preview h3 { margin-bottom: 6px; }
+.reward-preview p:last-child { margin-bottom: 0; color: var(--muted); }
+.advanced-gate { padding: 30px; border: 1px solid rgba(189,140,62,.45); background: rgba(189,140,62,.09); }
+.advanced-gate > p { line-height: 1.8; }
+.goal-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+.expected-artifact { display: grid; gap: 6px; margin: 20px 0; padding: 18px; background: var(--white); }
+.expected-artifact span { color: var(--muted); font: 12px/1.4 system-ui,sans-serif; }
+.entry-placeholder { display: grid; gap: 5px; padding: 16px; border: 1px dashed rgba(184,74,52,.4); color: var(--cinnabar-dark); background: rgba(255,255,255,.5); }
+.entry-placeholder span { color: var(--muted); font: 13px/1.5 system-ui,sans-serif; }
+.notice { margin: 18px 0; padding: 14px 16px; color: #765518; background: #fff3ce; border-left: 3px solid var(--gold); }
+.save-actions { display: grid; gap: 12px; margin: 26px 0; }
+.reset-confirm { margin-top: 18px; padding: 20px; border: 1px solid rgba(184,74,52,.35); background: #fff8f5; }
+.file-button input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+footer { display: flex; justify-content: space-between; gap: 30px; padding: 34px 0 50px; border-top: 1px solid var(--line); color: var(--muted); font: 12px/1.6 system-ui,sans-serif; }
+
+@media (max-width: 820px) {
+  .site-header { grid-template-columns: 1fr auto; gap: 14px; padding-inline: 18px; }
+  .header-progress { display: none; }
+  .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 58px; }
+  .world-law { max-width: 620px; }
+  .section-heading { grid-template-columns: 1fr; gap: 12px; }
+  .realm-card { grid-template-columns: 58px 1fr; }
+  .realm-card-action { grid-column: 2; justify-content: space-between; }
+  .archive-grid, .collection-grid { grid-template-columns: repeat(2, 1fr); }
+  .panel-form { grid-template-columns: 1fr; }
+  .share-output { grid-column: auto; }
+  .utility-row { align-items: stretch; flex-direction: column; }
+  .utility-row label { max-width: none; }
+}
+
+@media (max-width: 560px) {
+  main, footer { width: min(100% - 28px, 1180px); }
+  .site-header { min-height: 64px; }
+  .brand small { display: none; }
+  .ghost-button { min-height: 40px; padding-inline: 12px; font-size: 12px; }
+  h1 { font-size: 45px; }
+  .hero { gap: 44px; padding-bottom: 48px; }
+  .section-nav { margin-inline: -14px; }
+  .view { padding: 54px 0 72px; }
+  .realm-path::before { left: 37px; }
+  .realm-card { grid-template-columns: 46px 1fr; gap: 14px; padding: 20px 16px; }
+  .realm-card-copy h3 { font-size: 21px; }
+  .realm-card-action { flex-wrap: wrap; }
+  .archive-grid, .collection-grid, .scar-form { grid-template-columns: 1fr; }
+  .collection-card { padding: 20px; }
+  .scar-card dl { grid-template-columns: 1fr; gap: 5px; }
+  .scar-card dd { margin-bottom: 10px; }
+  .game-dialog, .level-dialog { width: 100%; max-height: 100vh; margin: 0; padding: 24px 18px; }
+  .acceptance-form, .advanced-gate { padding: 20px 16px; }
+  .start-task { align-items: stretch; flex-direction: column; }
+  .task-step { grid-template-columns: auto 30px 1fr; padding: 14px 10px; gap: 8px; }
+  .step-actions { align-items: stretch; flex-direction: column-reverse; }
+  .step-actions > * { width: 100%; min-height: 44px; }
+  .utility-row .secondary-button { width: 100%; }
+  footer { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+}
+
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <div class="sr-live" id="global-status" role="status" aria-live="polite"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#map" aria-label="回到九重世界地图">
+        <span class="brand-mark" aria-hidden="true">九</span>
+        <span>
+          <strong>九重登仙路</strong>
+          <small>万工界 · 可验之道</small>
+        </span>
+      </a>
+      <div class="header-progress" aria-label="当前进度">
+        <span id="progress-label">0 / 9 重</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
       </div>
-      <button class="bigbtn" onclick="go('quiz')">测灵根 · 认自己</button>
-      <button class="bigbtn ghost" onclick="go('map')">入九重天 · 闯关</button>
-    </div>
-    <div class="progressbar"><i id="homeProg" style="width:0%"></i></div>
-    <p class="center grey" id="homeStat" style="font-size:13px"></p>
-  </div>
+      <button class="ghost-button" id="open-save" type="button">存档管理</button>
+    </header>
 
-  <!-- 测灵根 -->
-  <div id="quiz" class="view">
-    <h2 class="center gold" style="font-size:26px;margin-bottom:6px">测灵根</h2>
-    <p class="center grey" style="font-size:13px;margin-bottom:8px">上路前，先认清自己。五问定灵根。</p>
-    <div id="quizBox"></div>
-    <div id="quizResult" style="display:none"></div>
-    <div class="center" id="quizActions" style="display:none;margin-top:6px">
-      <button class="bigbtn" onclick="go('map')">带着灵根 · 入九重天</button>
-    </div>
-  </div>
+    <main id="main-content">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">一份完美报告，为什么无法交付？</p>
+          <h1 id="hero-title">答案不是道果，<br />经得起复核的交付才是。</h1>
+          <p class="hero-intro">
+            你是进入百工院的无名学徒。与纸甲机灵“小序”同行，在九重任务中留下输入、过程与验收证据，阻止噪潮继续喂养镜渊。
+          </p>
+          <div class="hero-actions">
+            <button class="primary-button" id="start-journey" type="button">开始测灵根</button>
+            <button class="text-button" id="continue-journey" type="button">直接查看地图</button>
+          </div>
+        </div>
+        <aside class="world-law" aria-label="万工界三条根本法则">
+          <p class="seal">天衡台公示 · 三条根本法则</p>
+          <ol>
+            <li><strong>无据不成法</strong><span>输入、过程、验收均可追溯</span></li>
+            <li><strong>一术必一验</strong><span>每项流程都有失败条件与检查点</span></li>
+            <li><strong>人定其责</strong><span>AI 可以执行，责任不能外包</span></li>
+          </ol>
+        </aside>
+      </section>
 
-  <!-- 九重天地图 -->
-  <div id="map" class="view">
-    <h2 class="center gold" style="font-size:26px">九重天 · 境界地图</h2>
-    <p class="center grey" style="font-size:13px;margin:6px 0 4px" id="mapHint"></p>
-    <div class="path" id="pathBox"></div>
-  </div>
+      <nav class="section-nav" aria-label="游戏功能">
+        <button class="nav-tab is-active" data-view="map" type="button">九重地图</button>
+        <button class="nav-tab" data-view="archive" type="button">道果档案</button>
+        <button class="nav-tab" data-view="collection" type="button">法器图鉴</button>
+        <button class="nav-tab" data-view="scars" type="button">劫痕册</button>
+      </nav>
 
-  <!-- 关卡详情 -->
-  <div id="level" class="view">
-    <span class="back" onclick="go('map')">← 返回九重天</span>
-    <div id="levelBox"></div>
-  </div>
+      <section class="view is-active" id="view-map" data-view-panel="map" aria-labelledby="map-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">天衡台 · 行路图</p>
+            <h2 id="map-title">九重世界地图</h2>
+          </div>
+          <p id="path-recommendation">完成测灵根后，小序会给出学习起点建议。</p>
+        </div>
+        <div class="realm-path" id="realm-map"></div>
+      </section>
 
-  <!-- 图鉴 -->
-  <div id="codex" class="view">
-    <h2 class="center gold" style="font-size:26px">图鉴 · 道果收藏</h2>
-    <p class="center grey" style="font-size:13px;margin:6px 0 4px">每通关一重，便点亮一件法器、一道功法、一枚道果。</p>
-    <div id="codexBox"></div>
-  </div>
+      <section class="view" id="view-archive" data-view-panel="archive" aria-labelledby="archive-title" hidden>
+        <div class="section-heading">
+          <div><p class="eyebrow">可检查的真实交付</p><h2 id="archive-title">道果档案</h2></div>
+          <p>这里只记录你主动填写的信息，不读取本地工作文件。</p>
+        </div>
+        <div id="archive-list" class="archive-grid"></div>
+        <div class="utility-row">
+          <label>筛选道果<input id="archive-search" type="search" placeholder="输入关卡或道果名称" /></label>
+          <button class="secondary-button" id="copy-archive" type="button">复制道果摘要</button>
+        </div>
+        <form id="share-form" class="panel-form">
+          <div>
+            <p class="eyebrow">本地生成</p>
+            <h3>学习进度卡</h3>
+            <p>仅使用你主动输入的称呼和当前本地进度，不会上传数据。</p>
+          </div>
+          <label>卡片称呼<input id="share-name" maxlength="24" placeholder="例如：无名学徒" /></label>
+          <button class="secondary-button" type="submit">生成文字版进度卡</button>
+          <output id="share-output" class="share-output" aria-live="polite"></output>
+        </form>
+      </section>
 
-  <!-- 小红书打卡 -->
-  <div id="checkin" class="view">
-    <h2 class="center gold" style="font-size:26px">实操打卡 · 小红书副本</h2>
-    <p class="center grey" style="font-size:13px;margin:6px 0 14px">每通一关，去小红书交副本。截图成果 + 一句心得，带上话题，执灯师给你盖章。</p>
-    <div class="qcard" style="text-align:center">
-      <div class="qt" style="margin-bottom:14px">第一步：进话题，看别人怎么交</div>
-      <a class="bigbtn" href="https://www.xiaohongshu.com/user/profile/103365713" target="_blank" rel="noopener" style="text-decoration:none">打开小红书 · 关注 @Eric_网瘾中年_AI探路者</a>
-      <p class="hint" style="margin-top:12px">手机上打开小红书，搜索 <b class="gold">#九重登仙路</b> 或关注执灯师账号 <b class="gold">@Eric_网瘾中年_AI探路者</b>，置顶笔记有完整玩法说明与测灵根入口。</p>
-    </div>
-    <div id="checkinBox"></div>
-    <div class="qcard" style="margin-top:16px">
-      <div class="qt">第二步：发笔记交副本（格式）</div>
-      <p style="color:#d4d8de;line-height:1.9;font-size:14px">
-        1. 截图你在真实助手里的成果（注意脱敏：手机号、金额、客户名打码）。<br>
-        2. 写一句心得，模板：<b class="gold">以前____，现在____</b>。<br>
-        3. 带话题 <b class="gold">#九重登仙路</b> <b class="gold">#WorkBuddy实战</b>，发布即可。<br>
-        4. 回到游戏本关点“标记通关”，把道果收进图鉴。
-      </p>
-      <button class="bigbtn ghost" style="margin-top:10px" onclick="go('map')">去九重天 · 开始交副本</button>
-    </div>
-  </div>
+      <section class="view" id="view-collection" data-view-panel="collection" aria-labelledby="collection-title" hidden>
+        <div class="section-heading">
+          <div><p class="eyebrow">每次通关，留下一件方法信物</p><h2 id="collection-title">法器图鉴</h2></div>
+          <p>法器只是工具；能复现的方法与验收证据，才构成能力。</p>
+        </div>
+        <div id="collection-list" class="collection-grid"></div>
+      </section>
 
-  <!-- 分享卡 -->
-  <div id="share" class="view">
-    <h2 class="center gold" style="font-size:26px">分享卡 · 你的修道路</h2>
-    <div class="sharebox">
-      <canvas id="shareCanvas" width="800" height="1180"></canvas>
-      <div><button class="dlbtn" onclick="downloadCard()">下载分享卡</button></div>
-      <p class="hint">保存图片，发到朋友圈 / 小红书，带话题 #九重登仙路，找同路人。</p>
-    </div>
-  </div>
+      <section class="view" id="view-scars" data-view-panel="scars" aria-labelledby="scars-title" hidden>
+        <div class="section-heading">
+          <div><p class="eyebrow">失败不是黑历史</p><h2 id="scars-title">劫痕册</h2></div>
+          <p>记录复现条件、原因、修复和复验，让失败成为可复用的知识。</p>
+        </div>
+        <form id="scar-form" class="scar-form">
+          <label>劫痕标题<input name="title" required maxlength="60" placeholder="例如：导出文件缺少关键字段" /></label>
+          <label>关联关卡<select name="realmId" id="scar-realm"><option value="">不关联关卡</option></select></label>
+          <label>复现条件<textarea name="context" required maxlength="500" placeholder="在什么输入和步骤下发生？"></textarea></label>
+          <label>原因定位<textarea name="cause" required maxlength="500" placeholder="目前确认的原因是什么？"></textarea></label>
+          <label>修复动作<textarea name="fix" required maxlength="500" placeholder="你做了哪些修改？"></textarea></label>
+          <label>复验结果<textarea name="retest" required maxlength="500" placeholder="如何确认问题不再出现？"></textarea></label>
+          <button class="primary-button" type="submit">收入劫痕册</button>
+        </form>
+        <div class="utility-row">
+          <label>筛选劫痕<input id="scar-search" type="search" placeholder="输入标题、原因或关卡" /></label>
+          <button class="secondary-button" id="copy-scars" type="button">复制劫痕摘要</button>
+        </div>
+        <div id="scar-list" class="scar-list"></div>
+      </section>
+    </main>
 
-  <div class="footer">
-    九重登仙路 · 万工界原创修仙教学体系 ｜ 实操打卡版：每关副本在真实助手完成，截图回传小红书 #九重登仙路<br>
-    游戏分享链接：<b class="gold">https://f4a0061fd6ba4365841c118d390e2249.bj6.agentos-app.net</b><br>
-    本游戏为教学演示，所有案例均为安全素材（周报 / 数据表 / 文件归档 / 自动化 / 技能包）。顺为凡，逆则仙。
-  </div>
-</div>
-<div class="toast" id="toast"></div>
+    <dialog id="onboarding-dialog" class="game-dialog">
+      <form method="dialog" id="onboarding-form">
+        <button class="dialog-close" value="cancel" aria-label="关闭测灵根">×</button>
+        <p class="eyebrow">序章 · 雾港登记处 <span id="onboarding-progress">1 / 4</span></p>
+        <section class="onboarding-step" data-onboarding-step="0">
+          <h2>欢迎，无名学徒</h2>
+          <p class="lead-copy">登记官递来一份表格：“请证明你不是来领取万能答案的。”表格下方还有一行小字：本院从未发放过万能答案，去年发出去的都退货了。</p>
+          <div class="onboarding-card"><strong>你的任务</strong><p>在真实工具中完成工作，在这里记录步骤、验收证据和失败复盘。游戏不会替你操作，也不会替你判断。</p></div>
+          <button class="primary-button" type="button" data-onboarding-next>进入百工院</button>
+        </section>
+        <section class="onboarding-step" data-onboarding-step="1" hidden>
+          <h2>先读三条不太浪漫的法则</h2>
+          <ol class="onboarding-laws">
+            <li><strong>无据不成法</strong><span>找不到输入、过程与验收，漂亮答案也只是噪声。</span></li>
+            <li><strong>一术必一验</strong><span>自动流程必须有失败条件，不接受“应该没问题”。</span></li>
+            <li><strong>人定其责</strong><span>AI 可以执行，签字的人仍然是你。</span></li>
+          </ol>
+          <p class="privacy-note">所有记录只保存在当前浏览器。没有账号、统计或云端上传；游戏也不会读取你的工作文件。</p>
+          <div class="step-actions"><button class="text-button" type="button" data-onboarding-back>返回</button><button class="primary-button" type="button" data-onboarding-next>继续测灵根</button></div>
+        </section>
+        <section class="onboarding-step" data-onboarding-step="2" hidden>
+          <h2>测灵根，只为推荐起点</h2>
+          <p>这不是心理测评。选择最接近你当前状态的选项；选得厉害不会送法器。</p>
+          <fieldset>
+            <legend>你现在使用 AI 助手的频率？</legend>
+            <label><input type="radio" name="frequency" value="0" required /> 几乎没用过</label>
+            <label><input type="radio" name="frequency" value="1" /> 偶尔提问</label>
+            <label><input type="radio" name="frequency" value="2" /> 已用于真实工作</label>
+          </fieldset>
+          <fieldset>
+            <legend>你是否会为任务写清目标、输入、限制和交付物？</legend>
+            <label><input type="radio" name="contract" value="0" required /> 还不会</label>
+            <label><input type="radio" name="contract" value="1" /> 有时会</label>
+            <label><input type="radio" name="contract" value="2" /> 已形成习惯</label>
+          </fieldset>
+          <fieldset>
+            <legend>你能追溯 AI 结果的来源和版本吗？</legend>
+            <label><input type="radio" name="trace" value="0" required /> 不能</label>
+            <label><input type="radio" name="trace" value="1" /> 部分能</label>
+            <label><input type="radio" name="trace" value="2" /> 能稳定做到</label>
+          </fieldset>
+          <div class="step-actions"><button class="text-button" type="button" data-onboarding-back>返回</button><button class="primary-button" type="submit">生成起点建议</button></div>
+        </section>
+        <section class="onboarding-step" data-onboarding-step="3" hidden>
+          <h2>小序完成了第一次不抢答</h2>
+          <div class="recommendation-card"><span>起点建议</span><strong id="onboarding-result"></strong></div>
+          <p>所有人仍从第一重开始；建议只改变你的注意重点，不会替你跳过验收。</p>
+          <div class="step-actions"><button class="text-button" type="button" data-onboarding-back>修改答案</button><button class="primary-button" id="finish-onboarding" type="button">查看九重地图</button></div>
+        </section>
+      </form>
+    </dialog>
 
-<script>
-/* ============ 数据 ============ */
-const LEVELS = [
-  {id:0, name:"启机", en:"Awaken", line:"建立第一个可工作的助手连接，完成一项最小真实任务。",
-    trib:"装了一堆花哨工具，却没真正用它干过一件正事，你只是“拥有”了 AI，没“用过”AI。",
-    method:"一句话呼神术：把助手当新来的实习生，把话说全。",
-    contract:"你是【角色】，帮我做【事情】，\n要求：1）… 2）… 3）…\n交付形式：【…】",
-    dungeon:"副本：打开你的助手，给它一份你这周的零碎事项，让它写出一段像样的周报开头。",
-    fruit:"道果：一段能直接用的周报开头。",
-    xu:"小序：先别追新玩具。把一个助手用熟，比装十个都强。",
-    faqi:"对话窗", gongfa:"呼神术", dao:"周报开头"},
-  {id:1, name:"立契", en:"Contract", line:"把模糊需求改写成目标、输入、限制、交付清楚的工契。",
-    trib:"需求说不清，助手答非所问，你反过来怪它笨，其实病根在你没把话说清楚。",
-    method:"工契四要素：目标 + 输入 + 限制 + 交付。四样齐，结果才稳。",
-    contract:"【目标】整理销售表\n【输入】monthly.xlsx\n【限制】只看华东区、不改动原表\n【交付】一张按金额排序的新表 + 三句话结论",
-    dungeon:"副本：把一句“帮我整理下这些数据”，改写成一份四要素齐全的工契。",
-    fruit:"道果：一份能复用的工契模板。",
-    xu:"小序：模糊的需求养不出好结果，清晰的工契才是真本事。",
-    faqi:"工契模板", gongfa:"立契四要素", dao:"工契模板"},
-  {id:2, name:"藏识", en:"Store", line:"让文件、知识、来源和版本可以被正确寻找与追溯。",
-    trib:"上次那个好用的文件，改了三版之后，再也找不到“能用那一版”了。",
-    method:"命名 + 归档 + 来源标注三件套。版本用日期，来源写一处。",
-    contract:"【命名】2026客户清单_v3_已核验\n【归档】00_素材/客户/\n【来源】出处写在文件头三行",
-    dungeon:"副本：给你一批散乱文件，建一套“看得懂、找得到、追得回”的命名与目录。",
-    fruit:"道果：一套你自己的知识归档规范。",
-    xu:"小序：记不住的东西，就让它能被搜到。记忆不在脑子里，在体系里。",
-    faqi:"记忆/知识库", gongfa:"三件套归档", dao:"归档规范"},
-  {id:3, name:"铸法", en:"Forge", line:"把一次成功整理为可重复的模板与批处理方法。",
-    trib:"同样的事每次从头来，效率永远卡在第一次，成功经验带不到第二次。",
-    method:"把成功的步骤拆成模板 + 批量脚本，一次写好，百次复用。",
-    contract:"【模板】周报结构.md\n【批量】把 12 个原始表套进同一模板\n【输出】12 份统一格式的成品",
-    dungeon:"副本：选一个你每周都做的重复任务，做成可批处理的模板。",
-    fruit:"道果：一个可复用模板 / 批处理流程。",
-    xu:"小序：会一次不稀奇，次次都对才叫功法。",
-    faqi:"模板引擎", gongfa:"铸法批处理", dao:"可复用模板"},
-  {id:4, name:"化身", en:"Avatar", line:"把明确任务交给受约束的定时或自动流程执行。",
-    trib:"明明能自动的活，你天天手动点，时间都耗在“记得去做”上。",
-    method:"定时任务 + 明确边界：什么能做、什么不能做，先写清楚再放手。",
-    contract:"【任务】每天 9 点生成昨日数据简报\n【边界】只读数、不发送、出错就告警\n【交付】一份存好的简报",
-    dungeon:"副本：把一份“每天手动做”的日报，设成定时自动生成。",
-    fruit:"道果：一条跑通的自动化。",
-    xu:"小序：你该去想大事，重复活交给化身。但边界，永远你定。",
-    faqi:"定时触发器", gongfa:"化身自动化", dao:"自动化流程"},
-  {id:5, name:"渡错", en:"Mend", line:"通过复现、定位、修复、复验处理失败，不隐藏失败。",
-    trib:"它出错了，你删掉重来，问题还在。下次照样翻车，因为没人记录过原因。",
-    method:"劫痕四步：复现 → 定位 → 修复 → 复验。每一次失败都该留下道据。",
-    contract:"【复现】同样输入必现\n【定位】第 3 步空值\n【修复】加默认值\n【复验】重跑 5 次通过",
-    dungeon:"副本：记录一次真实报错，写成一张劫痕卡（复现+原因+修复+复验）。",
-    fruit:"道果：一张劫痕卡。",
-    xu:"小序：错不可怕，藏着错才可怕。把失败摊开，它就是下一步的台阶。",
-    faqi:"劫痕记录", gongfa:"渡错四步", dao:"劫痕卡"},
-  {id:6, name:"成术", en:"Skill", line:"把个人经验做成他人可以安装、理解和验证的 Skill。",
-    trib:"你的独门经验只在你脑子里，你一休假，整条线停摆，谁都接不住。",
-    method:"把经验写成 Skill：说明 + 输入 + 步骤 + 验收，让人装了就会用。",
-    contract:"【名称】会议纪要整理术\n【输入】录音转写文本\n【步骤】1 提炼结论 2 列待办 3 排跟踪\n【验收】输出含结论+待办+责任人",
-    dungeon:"副本：把一个你常用的小工作流，封装成一个可安装的 Skill。",
-    fruit:"道果：一个可安装的 Skill。",
-    xu:"小序：会做的人很多，能把“怎么做”写清楚的人稀缺。写成术，你就超越了你自己。",
-    faqi:"技能封装", gongfa:"成术封装", dao:"可安装技能"},
-  {id:7, name:"众智", en:"Council", line:"让多个角色或 Agent 在权限、交付和验收清楚下协作。",
-    trib:"一个大任务一个人扛，又慢又漏，瓶颈永远是你自己的时间和注意力。",
-    method:"拆角色 + 定交付 + 设验收门。每人只对自己那段负责。",
-    contract:"【角色】调研 / 写作 / 核查\n【交付】各自产出，互不过界\n【验收门】结论须有来源、待办须有责任人",
-    dungeon:"副本：把一个项目拆成多角色协作，各自交付、统一验收。",
-    fruit:"道果：一套多角色协作方案。",
-    xu:"小序：一个人走得快，一群各司其职的人走得远。众智不是堆人，是分清楚谁负责什么。",
-    faqi:"协作编排", gongfa:"众智分工", dao:"协作方案"},
-  {id:8, name:"传灯", en:"Lamp", line:"公开可复现的方法，帮助另一位学习者完成真实交付。",
-    trib:"你学会了，却说不清怎么教别人，知识停在“我会”，没到“我能让人会”。",
-    method:"把路径写成别人能跟做的教程：目标 + 素材 + 步骤 + 验收，开源出去。",
-    contract:"【目标】十分钟做出周报开头\n【素材】附一份示例\n【步骤】截图级指引\n【验收】读者照做能交付",
-    dungeon:"副本：写一份带素材包的迷你教程，让别人照着也能做出道果。",
-    fruit:"道果：一份可复现的公开教程（你成了传灯者）。",
-    xu:"小序：教是最好的学。当你能把别人点亮，你自己早已登顶。顺为凡，逆则仙。",
-    faqi:"开源教程", gongfa:"传灯之法", dao:"公开教程"},
-];
+    <dialog id="level-dialog" class="level-dialog">
+      <button class="dialog-close" id="close-level" type="button" aria-label="关闭关卡">×</button>
+      <div id="level-content"></div>
+    </dialog>
 
-const QUIZ = [
-  {q:"接到一个说不清的任务，你第一反应是？",
-   o:[["先动手做，做错再改","火"],["先把需求问清楚再动","水"],["列个清单一步步推","土"],["直接找人讨论定方向","雷"]]},
-  {q:"助手给的答案不太对，你会？",
-   o:[["将就用，赶时间","火"],["对照来源逐条核对","水"],["记下来下次避免","土"],["换个问法直接怼回去","雷"]]},
-  {q:"一堆重复表格每周都做，你？",
-   o:[["忍了，手动点完","火"],["想办法一次批量解决","土"],["找工具但怕麻烦","水"],["直接写个自动流程","雷"]]},
-  {q:"学一个新工具，你更看重？",
-   o:[["马上能用出效果","火"],["理解底层逻辑","水"],["稳定不出岔子","土"],["能不能改造得更猛","雷"]]},
-  {q:"你想成为哪种修士？",
-   o:[["冲在最前的锐士","火"],["看透全局的谋者","水"],["根基扎实的匠人","土"],["破局的变法者","雷"]]},
-];
-const ROOTS = {
-  土:{t:"厚土灵根", d:"你是稳行的土。根基派，看重可复现与不出错。九重路上，你最适合从藏识、铸法起跳，把每一次成功都夯实成体系。"},
-  火:{t:"烈火灵根", d:"你是锐进的火。上手快、见效猛，别让急躁毁了验收。你适合从启机直冲化身，用速度碾压重复活，但记得每关留道据。"},
-  水:{t:"通玄灵根", d:"你是通变的水。善解人意、懂底层，最会立契与渡错。你从立契起步最快，把模糊变清晰，是你天生的功法。"},
-  雷:{t:"破雷灵根", d:"你是破局的雷。不满足现状，敢改造敢自动化。众智与成术是你的主场，把经验封装出去，你就是传灯者。"},
-};
-
-/* ============ 存档 ============ */
-const KEY="jiuchong_save_v1";
-let S = load();
-function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return{}}}
-function save(){localStorage.setItem(KEY, JSON.stringify(S));}
-S.done = S.done||[]; S.codex = S.codex||{}; S.xu = S.xu||[];
-
-/* ============ 视图 ============ */
-function go(v){
-  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
-  document.getElementById(v).classList.add('active');
-  if(v==='home') renderHome();
-  if(v==='map') renderMap();
-  if(v==='codex') renderCodex();
-  if(v==='checkin') renderCheckin();
-  if(v==='share') drawCard();
-  if(v==='quiz' && !S.quizDone) renderQuiz();
-  window.scrollTo(0,0);
-}
-function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);}
-
-function renderHome(){
-  const n=S.done.length;
-  document.getElementById('homeProg').style.width=(n/9*100)+'%';
-  document.getElementById('homeStat').textContent = S.root ? `灵根：${ROOTS[S.root].t} ｜ 已通关 ${n}/9 重` : `尚未测灵根 ｜ 已通关 ${n}/9 重`;
-}
-function isUnlocked(i){return i===0 || S.done.includes(i-1);}
-
-/* ============ 测灵根 ============ */
-let qa=[];
-function renderQuiz(){
-  qa=[];
-  const box=document.getElementById('quizBox'); box.style.display='block';
-  document.getElementById('quizResult').style.display='none';
-  document.getElementById('quizActions').style.display='none';
-  box.innerHTML=QUIZ.map((it,i)=>`
-    <div class="qcard">
-      <div class="qt">第 ${i+1} 问 · ${it.q}</div>
-      ${it.o.map((o,j)=>`<div class="opt" onclick="pick(${i},${j},this)">${o[0]}</div>`).join('')}
-    </div>`).join('') + `<div class="center"><button class="bigbtn" onclick="finishQuiz()" ${qa.length<5?'disabled style=opacity:.5':''}>算出我的灵根</button></div>`;
-}
-function pick(qi,ji,el){
-  qa[qi]=QUIZ[qi].o[ji][1];
-  const card=el.closest('.qcard');
-  card.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
-  el.classList.add('sel');
-  const btn=document.querySelector('#quizBox .bigbtn');
-  if(qa.filter(x=>x).length>=5) btn.disabled=false, btn.style.opacity=1;
-}
-function finishQuiz(){
-  const c={土:0,火:0,水:0,雷:0}; qa.forEach(x=>c[x]++);
-  let best='土',mx=-1; for(const k in c){if(c[k]>mx){mx=c[k];best=k;}}
-  S.root=best; S.quizDone=true; save();
-  const r=ROOTS[best];
-  const box=document.getElementById('quizResult');
-  box.style.display='block';
-  box.innerHTML=`<div class="result"><div class="rt">${r.t}</div><div class="rd">${r.d}</div></div>`;
-  document.getElementById('quizActions').style.display='block';
-  toast('灵根已测定：'+r.t);
-}
-
-/* ============ 九重天地图 ============ */
-function renderMap(){
-  const box=document.getElementById('pathBox');
-  const cur = (()=>{for(let i=0;i<9;i++){if(!S.done.includes(i))return i;}return 9;})();
-  document.getElementById('mapHint').textContent = S.root? `灵根：${ROOTS[S.root].t} ｜ 当前可闯：第 ${cur<9?cur+1:9} 重` : '建议先去测灵根，认准自己的起跳点';
-  box.innerHTML=LEVELS.map((L,i)=>{
-    const unlocked=isUnlocked(i), done=S.done.includes(i);
-    const badge = done?`<span class="badge done">已通关</span>`:(unlocked?`<span class="badge cur">可闯</span>`:`<span class="badge lock">未解锁</span>`);
-    return `<div class="lv ${unlocked?'':'locked'} ${done?'done':''}" onclick="${unlocked?`openLevel(${i})`:`toast('先通关前一重')`}">
-      <div class="num">${i+1}<small>${L.en}</small></div>
-      <div class="body"><h3>${L.name} · ${L.en}</h3><p>${L.line}</p></div>
-      ${badge}
-    </div>`;
-  }).join('');
-}
-function openLevel(i){S.curLevel=i;renderLevel();go('level');}
-
-/* ============ 关卡详情 ============ */
-function renderLevel(){
-  const i=S.curLevel, L=LEVELS[i], done=S.done.includes(i), unlocked=isUnlocked(i);
-  const box=document.getElementById('levelBox');
-  box.innerHTML=`
-    <div class="lvtitle">第 ${i+1} 重 · ${L.name}</div>
-    <div class="lvtline">${L.line}</div>
-    <div class="stage"><div class="sh">劫难 <small>TRIAL · 你正被困在哪</small></div><p>${L.trib}</p></div>
-    <div class="stage"><div class="sh">功法 <small>METHOD · 通关之法</small></div><p>${L.method}</p>
-      <div class="code">${L.contract}</div></div>
-    <div class="stage"><div class="sh">副本 <small>DUNGEON · 实操打卡</small></div><p>${L.dungeon}</p>
-      <p class="grey" style="font-size:12px">↳ 在真实助手里完成，截图回传小红书 <b class="gold">#九重登仙路</b> 打卡，由执灯师盖章认证。</p></div>
-    <div class="stage"><div class="sh">验收门 <small>GATE · 通关条件</small></div>
-      <ul class="check">
-        <li class="${done?'ok':''}">完成副本，拿到你的 ${L.dao}</li>
-        <li class="${done?'ok':''}">能用自己的话讲清这一重的功法</li>
-        <li class="${done?'ok':''}">截图打卡已提交</li>
-      </ul></div>
-    <div class="xu">${L.xu}</div>
-    ${done?`<button class="passbtn" disabled>✔ 本重已通关 · ${L.dao} 已入图鉴</button>`
-          :`<button class="passbtn" ${unlocked?'':'disabled'} onclick="passLevel(${i})">${unlocked?'标记通关 · 领取道果':'先通关前一重'}</button>`}
-  `;
-}
-function passLevel(i){
-  if(!isUnlocked(i)||S.done.includes(i))return;
-  S.done.push(i);
-  S.codex[i]={faqi:LEVELS[i].faqi, gongfa:LEVELS[i].gongfa, dao:LEVELS[i].dao};
-  save();
-  toast('通关第'+(i+1)+'重 · '+LEVELS[i].dao+' 已入图鉴');
-  renderLevel(); renderHome();
-}
-
-/* ============ 图鉴 ============ */
-function renderCodex(){
-  const box=document.getElementById('codexBox');
-  const kinds=[['法器图鉴','faqi'],['功法图鉴','gongfa'],['道果图鉴','dao']];
-  let html='';
-  kinds.forEach(([title,key])=>{
-    html+=`<div class="sectitle">${title}</div><div class="jxgrid">`;
-    LEVELS.forEach((L,i)=>{
-      const got=S.codex[i]&&S.codex[i][key];
-      html+=`<div class="jx ${got?'':'lock'}"><div class="jt">${got?L[key]:'？？'}</div><div class="jd">${got?('第'+(i+1)+'重 · '+L.name):'未点亮'}</div></div>`;
-    });
-    html+='</div>';
-  });
-  box.innerHTML=html;
-}
-
-/* ============ 小红书打卡 ============ */
-function renderCheckin(){
-  const box=document.getElementById('checkinBox');
-  box.innerHTML=LEVELS.map((L,i)=>{
-    const done=S.done.includes(i);
-    return `<div class="lv ${done?'done':''}" style="cursor:default">
-      <div class="num">${i+1}<small>${L.en}</small></div>
-      <div class="body">
-        <h3>${L.name} · 副本任务书</h3>
-        <p style="color:#d4d8de;font-size:13px;line-height:1.7;margin:6px 0">${L.dungeon}</p>
-        <p class="grey" style="font-size:12px">↳ 在真实助手完成，截图发小红书 <b class="gold">#九重登仙路</b>，执灯师盖章。</p>
-        <p class="grey" style="font-size:12px;margin-top:4px">${done?'✔ 已通关 · 道果已入图鉴':'○ 待交副本'}</p>
+    <dialog id="save-dialog" class="game-dialog">
+      <button class="dialog-close" id="close-save" type="button" aria-label="关闭存档管理">×</button>
+      <p class="eyebrow">只保存在当前设备</p>
+      <h2>存档管理</h2>
+      <p>存档包含你主动填写的任务证据和劫痕。导入前会校验结构，不会执行其中的任何代码。</p>
+      <div class="save-actions">
+        <button class="secondary-button" id="export-save" type="button">导出 JSON 存档</button>
+        <label class="file-button">导入 JSON 存档<input id="import-save" type="file" accept="application/json,.json" /></label>
+        <button class="danger-button" id="show-reset" type="button">准备重置本地进度</button>
       </div>
-    </div>`;
-  }).join('');
-}
+      <div class="reset-confirm" id="reset-confirm" hidden>
+        <label>输入“重置九重存档”以确认<input id="reset-phrase" autocomplete="off" /></label>
+        <div class="step-actions"><button class="text-button" id="cancel-reset" type="button">取消</button><button class="danger-button" id="reset-save" type="button" disabled>永久重置</button></div>
+      </div>
+      <p id="save-message" class="status-message" aria-live="polite"></p>
+    </dialog>
 
-/* ============ 分享卡 ============ */
-function drawCard(){
-  const cv=document.getElementById('shareCanvas'), x=cv.getContext('2d');
-  const W=800,H=1180;
-  // 背景
-  let g=x.createLinearGradient(0,0,0,H); g.addColorStop(0,'#0d0f14');g.addColorStop(.5,'#161b27');g.addColorStop(1,'#0a0c11');
-  x.fillStyle=g; x.fillRect(0,0,W,H);
-  // 星点
-  for(let i=0;i<90;i++){x.fillStyle='rgba(220,225,235,'+(Math.random()*.12)+')';x.beginPath();x.arc(Math.random()*W,Math.random()*H*.7,Math.random()*1.6,0,7);x.fill();}
-  // 远山
-  x.fillStyle='rgba(18,22,30,.9)';x.beginPath();x.moveTo(0,H);for(let i=0;i<=10;i++){x.lineTo(i*80,H-120-Math.sin(i*1.3)*60- (i%2?30:0));}x.lineTo(W,H);x.fill();
-  // 边框
-  x.strokeStyle='rgba(216,178,102,.5)';x.lineWidth=2;x.strokeRect(24,24,W-48,H-48);
-  // 标题
-  x.textAlign='center';
-  x.fillStyle='#d8b266';x.font='40px STKaiti, KaiTi, serif';
-  x.fillText('九重登仙路',W/2,120);
-  x.fillStyle='#9aa2ae';x.font='15px Microsoft YaHei';
-  x.fillText('WAN GONG REALM · 万工界修仙教学',W/2,150);
-  // 灵根
-  const root = S.root? ROOTS[S.root].t : '未测灵根';
-  x.fillStyle='#f5d696';x.font='26px STKaiti, KaiTi, serif';
-  x.fillText('灵根 · '+root, W/2, 220);
-  // 称号
-  const n=S.done.length;
-  const titles=['未入门','启机学徒','立契学徒','藏识学徒','铸法修士','化身修士','渡错修士','成术真人','众智真人','传灯大能'];
-  x.fillStyle='#b0c4be';x.font='22px STKaiti, KaiTi, serif';
-  x.fillText('境界称号 · '+titles[n], W/2, 270);
-  // 九重进度
-  const startY=340, gap=82;
-  LEVELS.forEach((L,i)=>{
-    const y=startY+i*gap; const done=S.done.includes(i);
-    x.beginPath();x.arc(90,y,16,0,7);x.fillStyle=done?'#d8b266':'rgba(255,255,255,.12)';x.fill();
-    if(done){x.fillStyle='#0d0f14';x.font='18px Microsoft YaHei';x.textAlign='center';x.fillText('✓',90,y+6);}
-    x.textAlign='left';x.fillStyle=done?'#f0e6d0':'#6b7280';x.font='22px STKaiti, KaiTi, serif';
-    x.fillText(`第${i+1}重 ${L.name}`,125,y+7);
-    x.fillStyle='#9aa2ae';x.font='13px Microsoft YaHei';
-    x.fillText(done?('道果：'+L.dao):'未通关',125,y+28);
+    <footer>
+      <p>《九重登仙路》游戏代码采用 MIT；原创内容采用 CC BY 4.0。</p>
+      <p>当前为公开静态版。无统计、无账号、无云端上传、无在线收费。</p>
+    </footer>
+
+    <noscript>本游戏需要启用 JavaScript；所有数据仍只保存在你的浏览器本地。</noscript>
+
+    <script>
+(function configureGame(global) {
+  "use strict";
+
+  global.GAME_CONFIG = Object.freeze({
+    schemaVersion: 2,
+    storageKey: "jiuzhong-game-save",
+    legacyStorageKeys: Object.freeze(["jiuzhong-game-save-v1"]),
+    advancedAccessEnabled: false,
+    links: Object.freeze({
+      advancedApplication: null,
+      courseHome: null,
+      sourceRepository: null
+    }),
+    linkLabels: Object.freeze({
+      advancedApplication: "进阶带练申请入口待 Eric 配置",
+      courseHome: "课程主页待配置",
+      sourceRepository: "源代码仓库待配置"
+    })
   });
-  // 底部
-  x.textAlign='center';x.fillStyle='#d8b266';x.font='20px STKaiti, KaiTi, serif';
-  x.fillText('顺为凡，逆则仙',W/2,H-70);
-  x.fillStyle='#9aa2ae';x.font='14px Microsoft YaHei';
-  x.fillText('#九重登仙路  ·  扫码进游戏，从第一重启机开始',W/2,H-44);
-}
-function downloadCard(){
-  const cv=document.getElementById('shareCanvas');
-  const a=document.createElement('a');a.download='九重登仙路_分享卡.png';a.href=cv.toDataURL('image/png');a.click();
-  toast('分享卡已保存');
-}
+})(window);
 
-/* 启动 */
-renderHome();
 </script>
-</body>
+    <script>/* PUBLIC_LEVELS_BEGIN */
+window.GAME_LEVELS = Object.freeze([{"id":"realm-01","order":1,"publicName":"启机","legacyAliases":["启灵"],"location":"雾港 · 百工院门前","subtitle":"让第一次对话产生可保存的真实结果","access":"free","episodeIds":["EP07","EP08"],"story":{"opening":"一份格式完美的报告在交付时失效，纸甲机灵小序也忘记了自己为何回答。","conflict":"雾港的人把“得到一句回答”误当成“完成一项工作”。你需要用一份最小交付唤醒小序。","clue":"失效报告来自一个无人认领的自动任务，落款只有天衡台的旧印。"},"learningGoals":["完成安装与登录检查","写出含目标和交付物的第一条有效指令","把结果保存成可再次打开的文件"],"task":{"objective":"使用不含真实客户数据的练习素材，让 AI 助手整理一份“三项本周学习计划”，并保存为本地文件。","steps":["确认应用可以打开、账号状态正常，不在对话中粘贴密钥或敏感资料。","明确任务目标：为一位 AI 初学者整理三项本周学习计划。","补充限制：每项包含行动、产物和验收方式，总字数不超过 300 字。","检查结果后保存为 Markdown 或纯文本，并再次打开确认内容完整。"],"assets":[{"label":"启机练习说明","linkKey":"courseHome"}],"acceptance":["应用可打开并能正常对话","指令同时写明目标、限制与交付物","结果包含三项可执行行动","结果文件已保存且可再次打开"],"evidencePrompts":["记录结果文件名与保存格式","说明你如何确认结果不是只有漂亮格式"]},"reward":{"name":"小序初始形态","symbol":"序","description":"它不再抢答，而是学会先确认你要交付什么。"},"plotAfter":"小序醒来后指出：报告的每一段都像真的，唯独找不到任何输入来源。"},{"id":"realm-02","order":2,"publicName":"立契","legacyAliases":["凝气"],"location":"百工院 · 工契廊","subtitle":"把模糊需求写成可执行的工契","access":"free","episodeIds":["EP09","EP10"],"story":{"opening":"工坊收到“做得高级一点”的模糊工契，三名学徒给出三种互不兼容的成品。","conflict":"你必须区分提问、规划与制作，让同一任务沿着清楚的状态流转。","clue":"模糊工契并非偶发；有人正在批量删去验收条件。"},"learningGoals":["区分 Ask、Plan、Craft 的职责","写清目标、输入、限制与交付物","在制作前确认验收门"],"task":{"objective":"围绕“整理一场 30 分钟内部分享”完成一次 Ask、一次 Plan 和一次 Craft，并保留三阶段结果。","steps":["Ask：询问分享对象、已有素材、必须覆盖内容和不可出现内容。","Plan：形成按分钟划分的流程、素材清单、风险与验收条件。","Craft：依据已确认计划制作分享提纲，不在制作阶段擅自改变范围。","对照工契检查三个阶段，标注任何仍需人确认的假设。"],"assets":[{"label":"四段式工契空白模板","linkKey":"courseHome"}],"acceptance":["Ask 阶段补齐关键信息","Plan 阶段列出步骤、风险和验收","Craft 结果没有越过已确认范围","三阶段结果可对应同一份工契"],"evidencePrompts":["记录工契标题","写出一个被 Ask 阶段消除的错误假设"]},"reward":{"name":"工契印","symbol":"契","description":"目标、输入、限制与交付被压成一枚可核对的印记。"},"plotAfter":"宁砚盖下校验印，却发现藏识库里同名工契出现了三个版本。"},{"id":"realm-03","order":3,"publicName":"藏识","legacyAliases":["筑基"],"location":"藏识库 · 逆索回廊","subtitle":"让文件、来源和版本能够被追溯","access":"free","episodeIds":["EP11","EP12","EP13"],"story":{"opening":"藏识库的索引被批量改写，旧记录与新版本互相覆盖。","conflict":"你要让每条知识都能回答三个问题：从哪里来、何时更新、哪一版生效。","clue":"被改写的索引都指向流转城的一条无主批处理流程。"},"learningGoals":["建立稳定的文件命名规则","为知识条目记录来源与更新时间","处理重复内容和版本冲突"],"task":{"objective":"使用三份虚构练习笔记建立一个可检索知识包，并为每条结论留下来源和版本信息。","steps":["创建来源、整理稿和输出三个目录，不混放原始材料与加工结果。","统一文件命名为日期、主题、版本，保留原始文件不覆盖。","为知识条目补充来源文件、整理日期、适用范围与冲突说明。","用三个具体问题检索，确认答案能回到原始来源。"],"assets":[{"label":"三份虚构练习笔记","linkKey":"courseHome"}],"acceptance":["原始材料与加工结果分开保存","命名规则一致且版本可识别","每条关键结论都有来源","三个检索问题都能回到对应原文"],"evidencePrompts":["记录知识包目录名","描述一个版本冲突及你的处理规则"]},"reward":{"name":"藏识钥","symbol":"识","description":"它打开的不是答案，而是答案背后的来源与版本。"},"plotAfter":"索引恢复的一刻，流转城传来警报：错误正在被自动流程成百倍复制。"},{"id":"realm-04","order":4,"publicName":"铸法","location":"流转城 · 铸法坊","subtitle":"把一次成功固化为可重复的方法","access":"advanced","episodeIds":["EP19","EP20"],"story":{"opening":"同一份模板在新样本上连续失效。","conflict":"一次成功无法证明方法稳定，铸法必须经历新样本复验。","clue":"捷径楼正出售删去失败条件的黑箱模板。"},"learningGoals":["拆分固定规则与可变输入","设计批处理模板","使用新样本复验"],"task":{"objective":"把一次数据整理成功改造成可重复模板，并在新样本上复验。"},"reward":{"name":"铸法炉","symbol":"法","description":"只有通过新样本复验的方法，才会在炉中定型。"}},{"id":"realm-05","order":5,"publicName":"化身","location":"流转城 · 昼夜枢","subtitle":"让受约束的流程代你执行","access":"advanced","episodeIds":["EP25","EP26"],"story":{"opening":"自动任务准时完成，却把结果送到了错误位置。","conflict":"工作分身必须知道何时启动、输出到哪、失败时如何停止。","clue":"无人认领的分身正在持续向镜渊输送结果。"},"learningGoals":["定义触发与输出位置","设置失败条件和停止规则","保留运行记录"],"task":{"objective":"设计一项低风险定时任务，记录触发、输出、失败条件与人工复核。"},"reward":{"name":"分身符","symbol":"身","description":"它只执行被写清的工作，不替主人承担判断。"}},{"id":"realm-06","order":6,"publicName":"渡错","location":"错潮关 · 回声壁","subtitle":"用复现、定位、修复和复验穿过失败","access":"advanced","episodeIds":["EP29","EP30"],"story":{"opening":"错误结果被漂亮格式掩盖，修复者只能看到最后一张截图。","conflict":"没有复现条件，就没有可靠修复。","clue":"每道错潮都保留着镜渊形成的同一模式：无来源、无验收、无责任人。"},"learningGoals":["最小化复现条件","区分症状与根因","完成修复后的回归复验"],"task":{"objective":"选择一个脱敏或虚构故障，完成复现、定位、修复和复验记录。"},"reward":{"name":"劫痕册","symbol":"错","description":"每一道痕都保存失败条件、原因、修复与复验。"}},{"id":"realm-07","order":7,"publicName":"成术","location":"术林 · 开卷台","subtitle":"让个人经验成为他人可安装的 Skill","access":"advanced","episodeIds":["EP33","EP34"],"story":{"opening":"术林里挤满只有作者自己会用的功法。","conflict":"经验只有脱离作者后仍可安装、理解和验证，才能成术。","clue":"捷径楼用无法审查的功法互相调用，错误开始跨系统传播。"},"learningGoals":["定义 Skill 触发边界","提供可执行说明","用测试例验证可复现性"],"task":{"objective":"把一项稳定经验整理为 Skill，附 README、边界与测试例。"},"reward":{"name":"功法卷","symbol":"术","description":"卷上既写如何成功，也写何时不该使用。"}},{"id":"realm-08","order":8,"publicName":"众智","location":"众智庭 · 责任席","subtitle":"让多个角色在清楚边界内协作","access":"advanced","episodeIds":["EP39","EP40"],"story":{"opening":"多个机灵同时行动，彼此把错误结果当成可靠输入。","conflict":"协作不是增加角色数量，而是明确权限、交付和验收责任。","clue":"镜渊不是某个人制造的，它由整个世界的无主流程共同喂养。"},"learningGoals":["划分角色权限","定义交接契约","设置独立验收人"],"task":{"objective":"为一个多角色任务画出输入、输出、权限、交接与验收系统图。"},"reward":{"name":"众智令","symbol":"智","description":"令牌不发号施令，只标出谁能做什么、谁来验收。"}},{"id":"realm-09","order":9,"publicName":"传灯","location":"传灯台 · 重衡门","subtitle":"公开可复现的方法，让另一人完成交付","access":"advanced","episodeIds":["EP45","EP46"],"story":{"opening":"万解先生提出用更大的黑箱覆盖镜渊，代价是所有人永久交出判断权。","conflict":"你必须拒绝成为新的万能大师，把方法、责任与失败记录公开。","clue":"天衡台的重建不是终点；每一次被复现的方法，都是新的衡点。"},"learningGoals":["整理公开教程","处理来源与许可","通过第三方跟做验证"],"task":{"objective":"公开一份可复现教程或教学记录，帮助另一位学习者完成真实交付。"},"reward":{"name":"传灯印","symbol":"灯","description":"它不认证大师，只证明一条方法曾被另一人复现。"}}]);
+/* PUBLIC_LEVELS_END */</script>
+    <script>
+(function createStateMachine(global) {
+  "use strict";
+
+  const transitions = Object.freeze({
+    available: Object.freeze({ start: "in_progress" }),
+    in_progress: Object.freeze({ complete: "completed" }),
+    completed: Object.freeze({})
+  });
+
+  function transition(current, event) {
+    const next = transitions[current]?.[event];
+    if (!next) throw new Error(`不允许从“${current}”执行“${event}”`);
+    return next;
+  }
+
+  function isPrerequisiteMet(level, levels, progress) {
+    if (level.order === 1) return true;
+    const previous = levels.find((candidate) => candidate.order === level.order - 1);
+    return Boolean(previous && progress[previous.id]?.status === "completed");
+  }
+
+  function displayStatus(level, levels, progress, advancedAccessEnabled) {
+    const stored = progress[level.id]?.status || "available";
+    if (stored === "completed") return "completed";
+    if (level.access === "advanced" && !advancedAccessEnabled) return "advanced";
+    if (!isPrerequisiteMet(level, levels, progress)) return "locked";
+    return stored === "in_progress" ? "in_progress" : "available";
+  }
+
+  global.GameState = Object.freeze({ transition, isPrerequisiteMet, displayStatus });
+})(window);
+
+</script>
+    <script>
+(function createStorage(global) {
+  "use strict";
+
+  const config = global.GAME_CONFIG;
+
+  class SaveImportError extends Error {
+    constructor(code, message) {
+      super(message);
+      this.name = "SaveImportError";
+      this.code = code;
+    }
+  }
+
+  function createId() {
+    return global.crypto?.randomUUID?.() || `local-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  }
+
+  function blankLevel() {
+    return {
+      status: "available",
+      stepChecks: [],
+      acceptance: [],
+      artifactName: "",
+      evidence: "",
+      startedAt: null,
+      completedAt: null
+    };
+  }
+
+  function createDefaultSave() {
+    const progress = {};
+    global.GAME_LEVELS.forEach((level) => { progress[level.id] = blankLevel(); });
+    return {
+      schemaVersion: config.schemaVersion,
+      savedAt: new Date().toISOString(),
+      onboarding: { completed: false, step: 0, recommendation: "" },
+      profile: { displayName: "" },
+      progress,
+      scars: [],
+      ui: { lastView: "map", lastLevelId: null }
+    };
+  }
+
+  function cleanIndexes(value, max) {
+    if (!Array.isArray(value)) return [];
+    return [...new Set(value.filter((item) => Number.isInteger(item) && item >= 0 && item < max))].sort((a, b) => a - b);
+  }
+
+  function normalizeLevel(candidate, level) {
+    const base = blankLevel();
+    if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) return base;
+    const allowedStatus = ["available", "in_progress", "completed"];
+    return {
+      status: allowedStatus.includes(candidate.status) ? candidate.status : base.status,
+      stepChecks: cleanIndexes(candidate.stepChecks, level.task?.steps?.length || 0),
+      acceptance: cleanIndexes(candidate.acceptance, level.task?.acceptance?.length || 0),
+      artifactName: typeof candidate.artifactName === "string" ? candidate.artifactName.slice(0, 120) : "",
+      evidence: typeof candidate.evidence === "string" ? candidate.evidence.slice(0, 1000) : "",
+      startedAt: typeof candidate.startedAt === "string" ? candidate.startedAt : null,
+      completedAt: typeof candidate.completedAt === "string" ? candidate.completedAt : null
+    };
+  }
+
+  function migrateV1(candidate) {
+    return {
+      schemaVersion: 2,
+      savedAt: candidate.savedAt,
+      onboarding: {
+        completed: Boolean(candidate.onboardingComplete),
+        step: Boolean(candidate.onboardingComplete) ? 3 : 0,
+        recommendation: typeof candidate.recommendation === "string" ? candidate.recommendation : ""
+      },
+      profile: candidate.profile,
+      progress: candidate.progress,
+      scars: candidate.scars,
+      ui: { lastView: "map", lastLevelId: null }
+    };
+  }
+
+  function normalize(candidate) {
+    if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) {
+      throw new SaveImportError("structure", "存档根节点必须是 JSON 对象");
+    }
+    if (!Number.isInteger(candidate.schemaVersion)) {
+      throw new SaveImportError("version-missing", "存档缺少有效的 schemaVersion");
+    }
+    if (candidate.schemaVersion > config.schemaVersion) {
+      throw new SaveImportError("version-newer", `该存档来自更新版本（v${candidate.schemaVersion}），当前游戏无法安全读取`);
+    }
+    if (candidate.schemaVersion < 1) {
+      throw new SaveImportError("version-old", `不支持过旧的存档版本：v${candidate.schemaVersion}`);
+    }
+    const migrated = candidate.schemaVersion === 1 ? migrateV1(candidate) : candidate;
+    const clean = createDefaultSave();
+    clean.onboarding.completed = Boolean(migrated.onboarding?.completed);
+    clean.onboarding.step = Math.max(0, Math.min(3, Number(migrated.onboarding?.step) || 0));
+    clean.onboarding.recommendation = typeof migrated.onboarding?.recommendation === "string"
+      ? migrated.onboarding.recommendation.slice(0, 180) : "";
+    clean.profile.displayName = typeof migrated.profile?.displayName === "string"
+      ? migrated.profile.displayName.slice(0, 24) : "";
+    global.GAME_LEVELS.forEach((level) => {
+      clean.progress[level.id] = normalizeLevel(migrated.progress?.[level.id], level);
+    });
+    clean.scars = Array.isArray(migrated.scars)
+      ? migrated.scars.slice(0, 100).map((scar) => ({
+          id: typeof scar.id === "string" ? scar.id.slice(0, 100) : createId(),
+          realmId: global.GAME_LEVELS.some((level) => level.id === scar.realmId) ? scar.realmId : "",
+          title: String(scar.title || "未命名劫痕").slice(0, 60),
+          context: String(scar.context || "").slice(0, 500),
+          cause: String(scar.cause || "").slice(0, 500),
+          fix: String(scar.fix || "").slice(0, 500),
+          retest: String(scar.retest || "").slice(0, 500),
+          createdAt: typeof scar.createdAt === "string" ? scar.createdAt : new Date().toISOString()
+        })) : [];
+    clean.ui.lastView = ["map", "archive", "collection", "scars"].includes(migrated.ui?.lastView)
+      ? migrated.ui.lastView : "map";
+    clean.ui.lastLevelId = global.GAME_LEVELS.some((level) => level.id === migrated.ui?.lastLevelId)
+      ? migrated.ui.lastLevelId : null;
+    return clean;
+  }
+
+  function parseJson(raw) {
+    if (typeof raw !== "string") throw new SaveImportError("format", "导入内容必须是 JSON 文本");
+    if (raw.length > 1_000_000) throw new SaveImportError("too-large", "存档超过 1MB，已拒绝导入");
+    try {
+      return JSON.parse(raw);
+    } catch {
+      throw new SaveImportError("json", "文件不是有效 JSON，可能已损坏或选错文件");
+    }
+  }
+
+  function load() {
+    const keys = [config.storageKey, ...(config.legacyStorageKeys || [])];
+    for (const key of keys) {
+      try {
+        const raw = localStorage.getItem(key);
+        if (!raw) continue;
+        const clean = normalize(parseJson(raw));
+        if (key !== config.storageKey) save(clean);
+        return clean;
+      } catch (error) {
+        console.warn(`本地存档 ${key} 无法读取，继续检查其他存档。`, error);
+      }
+    }
+    return createDefaultSave();
+  }
+
+  function save(candidate) {
+    const clean = normalize(candidate);
+    clean.savedAt = new Date().toISOString();
+    localStorage.setItem(config.storageKey, JSON.stringify(clean));
+    return clean;
+  }
+
+  function reset() {
+    localStorage.removeItem(config.storageKey);
+    (config.legacyStorageKeys || []).forEach((key) => localStorage.removeItem(key));
+    return createDefaultSave();
+  }
+
+  function exportJson(state) {
+    const clean = save(state);
+    return JSON.stringify({ ...clean, exportMeta: { format: "jiuzhong-local-save", schemaVersion: config.schemaVersion } }, null, 2);
+  }
+
+  function importJson(raw) {
+    return save(normalize(parseJson(raw)));
+  }
+
+  global.GameStorage = Object.freeze({
+    SaveImportError, createDefaultSave, normalize, load, save, reset, exportJson, importJson
+  });
+})(window);
+
+</script>
+    <script>
+(function runGame(global) {
+  "use strict";
+
+  const levels = global.GAME_LEVELS;
+  const config = global.GAME_CONFIG;
+  let state = global.GameStorage.load();
+  let activeLevelId = null;
+
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+  const escapeHtml = (value) => String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+  const createId = () => global.crypto?.randomUUID?.() || `local-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
+  function configuredUrl(key) {
+    const value = config.links[key];
+    if (!value) return null;
+    try {
+      const url = new URL(value, global.location.href);
+      return ["http:", "https:"].includes(url.protocol) ? url.href : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function persist() {
+    state = global.GameStorage.save(state);
+  }
+
+  function completedCount() {
+    return levels.filter((level) => state.progress[level.id]?.status === "completed").length;
+  }
+
+  function isPrerequisiteMet(level) {
+    return global.GameState.isPrerequisiteMet(level, levels, state.progress);
+  }
+
+  function statusFor(level) {
+    const status = global.GameState.displayStatus(level, levels, state.progress, config.advancedAccessEnabled);
+    return {
+      completed: { label: "已通关", className: "completed" },
+      advanced: { label: "进阶入口", className: "advanced" },
+      locked: { label: "待前置", className: "locked" },
+      in_progress: { label: "进行中", className: "active" },
+      available: { label: "可开始", className: "available" }
+    }[status];
+  }
+
+  function announce(message) {
+    $("#global-status").textContent = "";
+    global.setTimeout(() => { $("#global-status").textContent = message; }, 20);
+  }
+
+  function updateProgress() {
+    const count = completedCount();
+    $("#progress-label").textContent = `${count} / 9 重`;
+    $("#progress-bar").style.width = `${(count / levels.length) * 100}%`;
+  }
+
+  function renderMap() {
+    $("#realm-map").innerHTML = levels.map((level) => {
+      const status = statusFor(level);
+      return `
+        <article class="realm-card ${status.className}">
+          <div class="realm-number" aria-hidden="true">${String(level.order).padStart(2, "0")}</div>
+          <div class="realm-card-copy">
+            <p>${escapeHtml(level.location)}</p>
+            <h3>第${level.order}重 · ${escapeHtml(level.publicName)}</h3>
+            <span>${escapeHtml(level.subtitle)}</span>
+          </div>
+          <div class="realm-card-action">
+            <span class="status-chip">${status.label}</span>
+            <button type="button" data-level-id="${level.id}" aria-label="查看第${level.order}重 ${escapeHtml(level.publicName)}">
+              查看关卡 <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>`;
+    }).join("");
+
+    $$("[data-level-id]").forEach((button) => {
+      button.addEventListener("click", () => openLevel(button.dataset.levelId));
+    });
+    $("#path-recommendation").textContent = state.onboarding.recommendation || "完成测灵根后，小序会给出学习起点建议。";
+  }
+
+  function linkOrPlaceholder(asset) {
+    const url = configuredUrl(asset.linkKey);
+    if (!url) {
+      return `<span class="placeholder-link" title="未配置线上地址">${escapeHtml(asset.label)} · ${escapeHtml(config.linkLabels[asset.linkKey])}</span>`;
+    }
+    return `<a href="${escapeHtml(url)}" rel="noopener noreferrer">${escapeHtml(asset.label)}</a>`;
+  }
+
+  function renderAdvancedLevel(level) {
+    const application = configuredUrl("advancedApplication");
+    const entry = application
+      ? `<a class="primary-button inline-button" href="${escapeHtml(application)}" rel="noopener noreferrer">了解进阶带练</a>`
+      : `<div class="entry-placeholder"><strong>入口尚未开放</strong><span>${escapeHtml(config.linkLabels.advancedApplication)}</span></div>`;
+    return `
+      <header class="level-header">
+        <p class="eyebrow">第${level.order}重 · ${escapeHtml(level.location)}</p>
+        <h2>${escapeHtml(level.publicName)}</h2>
+        <p class="level-subtitle">${escapeHtml(level.subtitle)}</p>
+      </header>
+      <section class="story-block">
+        <span>剧情卷页</span>
+        <p>${escapeHtml(level.story.opening)} ${escapeHtml(level.story.conflict)}</p>
+      </section>
+      <section class="advanced-gate">
+        <p class="eyebrow">进阶内容说明</p>
+        <h3>前三重完整免费；本重起提供进阶带练与企业内训</h3>
+        <p>当前游戏不接入支付，也不会收集报名信息。本重仅展示能力目标与预期道果；完整步骤、素材和验收辅导将在 Eric 配置正式入口后提供。</p>
+        <div class="goal-chips">${level.learningGoals.map((goal) => `<span>${escapeHtml(goal)}</span>`).join("")}</div>
+        <div class="expected-artifact"><span>预期道果</span><strong>${escapeHtml(level.task.objective)}</strong></div>
+        ${entry}
+      </section>
+      <section class="plot-clue"><strong>当前线索</strong><p>${escapeHtml(level.story.clue)}</p></section>`;
+  }
+
+  function renderFreeLevel(level) {
+    const progress = state.progress[level.id];
+    const prerequisiteMet = isPrerequisiteMet(level);
+    const started = progress.status !== "available";
+    const stepsComplete = progress.stepChecks.length === level.task.steps.length;
+    const taskSteps = level.task.steps.map((step, index) => `
+      <label class="task-step ${progress.stepChecks.includes(index) ? "is-done" : ""}">
+        <input type="checkbox" name="taskStep" value="${index}" ${progress.stepChecks.includes(index) ? "checked" : ""} ${started && prerequisiteMet && progress.status !== "completed" ? "" : "disabled"} />
+        <span class="step-index">${String(index + 1).padStart(2, "0")}</span>
+        <span>${escapeHtml(step)}</span>
+      </label>`).join("");
+    const acceptance = level.task.acceptance.map((item, index) => `
+      <label class="check-item">
+        <input type="checkbox" name="acceptance" value="${index}" ${progress.acceptance.includes(index) ? "checked" : ""} ${stepsComplete ? "" : "disabled"} />
+        <span>${escapeHtml(item)}</span>
+      </label>`).join("");
+    return `
+      <header class="level-header">
+        <p class="eyebrow">第${level.order}重 · ${escapeHtml(level.location)}</p>
+        <h2>${escapeHtml(level.publicName)}</h2>
+        <p class="level-subtitle">${escapeHtml(level.subtitle)}</p>
+      </header>
+      ${!prerequisiteMet ? `<div class="notice">建议先完成上一重。本关内容可以预览，但暂不能提交通关。</div>` : ""}
+      <section class="story-block">
+        <span>剧情卷页</span>
+        <p>${escapeHtml(level.story.opening)} ${escapeHtml(level.story.conflict)}</p>
+      </section>
+      <section class="level-section">
+        <p class="eyebrow">现实任务</p>
+        <h3>${escapeHtml(level.task.objective)}</h3>
+        <ul class="goal-list">${level.learningGoals.map((goal) => `<li>${escapeHtml(goal)}</li>`).join("")}</ul>
+      </section>
+      <section class="level-section">
+        <p class="eyebrow">实操路径</p>
+        ${!started && prerequisiteMet ? `<div class="start-task"><p>准备好后再开始。开始会把本关标记为“进行中”，但不会计时，也没有连胜奖励。</p><button class="primary-button" id="start-level" type="button">开始本关任务</button></div>` : ""}
+        <div class="task-steps" aria-label="实操步骤">${taskSteps}</div>
+        <p class="step-progress" id="step-progress">已完成 ${progress.stepChecks.length} / ${level.task.steps.length} 步</p>
+        <div class="asset-row">${level.task.assets.map(linkOrPlaceholder).join("")}</div>
+      </section>
+      <form id="acceptance-form" class="acceptance-form" data-level-id="${level.id}">
+        <div>
+          <p class="eyebrow">验收门 · 用户自证</p>
+          <h3>逐项核对你的真实交付</h3>
+          <p>${stepsComplete ? "游戏不会读取工作文件或冒充 AI 评分。请根据可观察结果自行核验。" : "完成全部实操步骤后，验收清单才会启用。百工院认为跳步是一种移动方式，但不承认它是方法。"}</p>
+        </div>
+        <div class="check-list">${acceptance}</div>
+        <label>道果名称<input name="artifactName" required maxlength="120" value="${escapeHtml(progress.artifactName)}" placeholder="例如：本周学习计划.md" /></label>
+        <label>道据说明<textarea name="evidence" required maxlength="1000" placeholder="${escapeHtml(level.task.evidencePrompts.join("；"))}">${escapeHtml(progress.evidence)}</textarea></label>
+        <label class="certify"><input type="checkbox" name="certify" required /> 我确认以上勾选来自实际检查，而不是为了点亮进度。</label>
+        <button class="primary-button" type="submit" ${prerequisiteMet && stepsComplete ? "" : "disabled"}>${progress.status === "completed" ? "更新通关记录" : "提交验收并通关"}</button>
+        <p class="form-message" aria-live="polite"></p>
+      </form>
+      <section class="reward-preview">
+        <span class="reward-symbol" aria-hidden="true">${escapeHtml(level.reward.symbol)}</span>
+        <div><p class="eyebrow">通关道果</p><h3>${escapeHtml(level.reward.name)}</h3><p>${escapeHtml(level.reward.description)}</p></div>
+      </section>
+      <section class="plot-clue"><strong>通关后线索</strong><p>${escapeHtml(level.plotAfter)}</p></section>`;
+  }
+
+  function openLevel(levelId) {
+    const level = levels.find((candidate) => candidate.id === levelId);
+    if (!level) return;
+    activeLevelId = levelId;
+    state.ui.lastLevelId = levelId;
+    persist();
+    $("#level-content").innerHTML = level.access === "advanced" && !config.advancedAccessEnabled
+      ? renderAdvancedLevel(level)
+      : renderFreeLevel(level);
+    const form = $("#acceptance-form");
+    if (form) form.addEventListener("submit", handleAcceptance);
+    const startButton = $("#start-level");
+    if (startButton) startButton.addEventListener("click", () => startLevel(level));
+    $$('#level-content input[name="taskStep"]').forEach((checkbox) => {
+      checkbox.addEventListener("change", () => saveTaskSteps(level));
+    });
+    const dialog = $("#level-dialog");
+    if (!dialog.open) dialog.showModal();
+    const heading = $("#level-content h2");
+    if (heading) { heading.tabIndex = -1; heading.focus(); }
+  }
+
+  function startLevel(level) {
+    const progress = state.progress[level.id];
+    try {
+      progress.status = global.GameState.transition(progress.status, "start");
+      progress.startedAt = new Date().toISOString();
+      persist();
+      openLevel(level.id);
+      announce(`第${level.order}重“${level.publicName}”已开始`);
+    } catch (error) {
+      announce(error.message);
+    }
+  }
+
+  function saveTaskSteps(level) {
+    const progress = state.progress[level.id];
+    progress.stepChecks = $$('#level-content input[name="taskStep"]:checked').map((input) => Number(input.value));
+    persist();
+    openLevel(level.id);
+    $('#level-content input[name="taskStep"]:not(:checked)')?.focus();
+    announce(`第${level.order}重实操进度：${progress.stepChecks.length}/${level.task.steps.length}`);
+  }
+
+  function handleAcceptance(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const level = levels.find((candidate) => candidate.id === form.dataset.levelId);
+    const checked = $$('input[name="acceptance"]:checked', form).map((input) => Number(input.value));
+    const message = $(".form-message", form);
+    const progress = state.progress[level.id];
+    if (progress.stepChecks.length !== level.task.steps.length) {
+      message.textContent = "实操步骤尚未完成。验收门保持关闭，而且对此没有情绪。";
+      form.querySelector('input[name="taskStep"]:not(:checked)')?.focus();
+      return;
+    }
+    if (checked.length !== level.task.acceptance.length) {
+      message.textContent = `还有 ${level.task.acceptance.length - checked.length} 项未验收。请检查真实交付；盖章不能替代证据。`;
+      form.querySelector('input[name="acceptance"]:not(:checked)')?.focus();
+      return;
+    }
+    const artifactName = form.elements.artifactName.value.trim();
+    const evidence = form.elements.evidence.value.trim();
+    if (artifactName.length < 2 || evidence.length < 12) {
+      message.textContent = "道果名称至少 2 个字，道据至少 12 个字。‘已经做了’在百工院被归类为空白文书。";
+      (artifactName.length < 2 ? form.elements.artifactName : form.elements.evidence).focus();
+      return;
+    }
+    const nextStatus = progress.status === "completed"
+      ? "completed"
+      : global.GameState.transition(progress.status, "complete");
+    state.progress[level.id] = {
+      ...progress,
+      status: nextStatus,
+      stepChecks: [...progress.stepChecks],
+      acceptance: checked,
+      artifactName,
+      evidence,
+      completedAt: new Date().toISOString()
+    };
+    persist();
+    message.textContent = `已通过第${level.order}重“${level.publicName}”的自证验收，${level.reward.name}已收入图鉴。`;
+    updateProgress();
+    renderMap();
+    renderArchive();
+    renderCollection();
+    announce(`第${level.order}重“${level.publicName}”已通过自证验收`);
+  }
+
+  function renderArchive() {
+    const query = $("#archive-search")?.value.trim().toLocaleLowerCase("zh-CN") || "";
+    const completed = levels.filter((level) => {
+      const progress = state.progress[level.id];
+      const haystack = `${level.publicName} ${progress.artifactName} ${progress.evidence}`.toLocaleLowerCase("zh-CN");
+      return progress?.status === "completed" && (!query || haystack.includes(query));
+    });
+    $("#archive-list").innerHTML = completed.length
+      ? completed.map((level) => {
+          const progress = state.progress[level.id];
+          return `<article class="archive-card"><span>第${level.order}重 · ${escapeHtml(level.publicName)}</span><h3>${escapeHtml(progress.artifactName)}</h3><p>${escapeHtml(progress.evidence)}</p><time>${new Date(progress.completedAt).toLocaleString("zh-CN")}</time></article>`;
+        }).join("")
+      : `<div class="empty-state"><strong>${query ? "没有匹配道果" : "尚无道果"}</strong><p>${query ? "换一个关键词；档案员拒绝猜同义词。" : "完成启机的真实任务后，第一份交付会出现在这里。"}</p></div>`;
+  }
+
+  function renderCollection() {
+    $("#collection-list").innerHTML = levels.map((level) => {
+      const unlocked = state.progress[level.id]?.status === "completed";
+      return `<article class="collection-card ${unlocked ? "unlocked" : ""}"><span class="reward-symbol">${escapeHtml(level.reward.symbol)}</span><div><small>${unlocked ? "已获得" : level.access === "advanced" ? "进阶预览" : "尚未获得"}</small><h3>${escapeHtml(level.reward.name)}</h3><p>${escapeHtml(level.reward.description)}</p></div></article>`;
+    }).join("");
+  }
+
+  function renderScars() {
+    const query = $("#scar-search")?.value.trim().toLocaleLowerCase("zh-CN") || "";
+    const filtered = state.scars.filter((scar) => {
+      const realm = levels.find((level) => level.id === scar.realmId)?.publicName || "";
+      return !query || `${realm} ${scar.title} ${scar.context} ${scar.cause} ${scar.fix} ${scar.retest}`.toLocaleLowerCase("zh-CN").includes(query);
+    });
+    $("#scar-list").innerHTML = filtered.length
+      ? filtered.map((scar) => `
+          <article class="scar-card">
+            <div><span>${escapeHtml(levels.find((level) => level.id === scar.realmId)?.publicName || "未关联关卡")} · ${new Date(scar.createdAt).toLocaleDateString("zh-CN")}</span><button type="button" data-delete-scar="${escapeHtml(scar.id)}">删除</button></div>
+            <h3>${escapeHtml(scar.title)}</h3>
+            <dl><dt>复现</dt><dd>${escapeHtml(scar.context)}</dd><dt>原因</dt><dd>${escapeHtml(scar.cause)}</dd><dt>修复</dt><dd>${escapeHtml(scar.fix)}</dd><dt>复验</dt><dd>${escapeHtml(scar.retest)}</dd></dl>
+          </article>`).join("")
+      : `<div class="empty-state"><strong>${query ? "没有匹配劫痕" : "尚无劫痕"}</strong><p>${query ? "换一个关键词；回声壁只复述已记录的内容。" : "遇到失败时，记录完整复现、原因、修复与复验。"}</p></div>`;
+    $$('[data-delete-scar]').forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!confirm("确定删除这条劫痕记录？此操作无法撤销。")) return;
+        state.scars = state.scars.filter((scar) => scar.id !== button.dataset.deleteScar);
+        persist();
+        renderScars();
+      });
+    });
+  }
+
+  function switchView(viewName) {
+    $$(".nav-tab").forEach((tab) => tab.classList.toggle("is-active", tab.dataset.view === viewName));
+    $$('[data-view-panel]').forEach((panel) => {
+      const active = panel.dataset.viewPanel === viewName;
+      panel.hidden = !active;
+      panel.classList.toggle("is-active", active);
+    });
+    state.ui.lastView = viewName;
+    persist();
+    $(`#view-${viewName}`).scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function showOnboardingStep(step) {
+    const safeStep = Math.max(0, Math.min(3, step));
+    $$("[data-onboarding-step]").forEach((panel) => { panel.hidden = Number(panel.dataset.onboardingStep) !== safeStep; });
+    $("#onboarding-progress").textContent = `${safeStep + 1} / 4`;
+    state.onboarding.step = safeStep;
+    if (safeStep === 3) $("#onboarding-result").textContent = state.onboarding.recommendation;
+    persist();
+    const heading = $(`[data-onboarding-step="${safeStep}"] h2`);
+    if (heading) { heading.tabIndex = -1; heading.focus(); }
+  }
+
+  function openOnboarding(fromStartButton = false) {
+    const dialog = $("#onboarding-dialog");
+    if (!dialog.open) dialog.showModal();
+    showOnboardingStep(fromStartButton && state.onboarding.completed ? 3 : state.onboarding.step);
+  }
+
+  async function copyText(text, successMessage) {
+    try {
+      if (navigator.clipboard?.writeText && global.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const area = document.createElement("textarea");
+        area.value = text;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.opacity = "0";
+        document.body.append(area);
+        area.select();
+        if (!document.execCommand("copy")) throw new Error("浏览器拒绝复制");
+        area.remove();
+      }
+      announce(successMessage);
+    } catch {
+      announce("复制失败，请手动选择文字。当前浏览器可能限制本地页面访问剪贴板。");
+    }
+  }
+
+  function bindEvents() {
+    $$(".nav-tab").forEach((tab) => tab.addEventListener("click", () => switchView(tab.dataset.view)));
+    $("#start-journey").addEventListener("click", () => openOnboarding(true));
+    $("#continue-journey").addEventListener("click", () => $("#view-map").scrollIntoView({ behavior: "smooth" }));
+    $("#close-level").addEventListener("click", () => $("#level-dialog").close());
+    $("#open-save").addEventListener("click", () => $("#save-dialog").showModal());
+    $("#close-save").addEventListener("click", () => $("#save-dialog").close());
+
+    $$("[data-onboarding-next]").forEach((button) => button.addEventListener("click", () => showOnboardingStep(state.onboarding.step + 1)));
+    $$("[data-onboarding-back]").forEach((button) => button.addEventListener("click", () => showOnboardingStep(state.onboarding.step - 1)));
+
+    $("#onboarding-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const score = ["frequency", "contract", "trace"].reduce((sum, key) => sum + Number(data.get(key)), 0);
+      state.onboarding.recommendation = score <= 2
+        ? "小序建议：从第一重“启机”开始，先完成一次可保存的真实交付。"
+        : score <= 4
+          ? "小序建议：仍从“启机”开始，但把重点放在第二重“立契”的任务边界。"
+          : "小序建议：快速完成前三重自检；不要跳过来源、版本和验收证据。";
+      persist();
+      renderMap();
+      showOnboardingStep(3);
+    });
+
+    $("#finish-onboarding").addEventListener("click", () => {
+      state.onboarding.completed = true;
+      state.onboarding.step = 3;
+      persist();
+      $("#onboarding-dialog").close();
+      $("#view-map").scrollIntoView({ behavior: "smooth" });
+      announce("序章完成。九重地图已展开。所有人从启机开始。 ");
+    });
+
+    $("#scar-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      state.scars.unshift({
+        id: createId(),
+        realmId: data.get("realmId") || "",
+        title: data.get("title").trim(), context: data.get("context").trim(),
+        cause: data.get("cause").trim(), fix: data.get("fix").trim(), retest: data.get("retest").trim(),
+        createdAt: new Date().toISOString()
+      });
+      persist();
+      event.currentTarget.reset();
+      renderScars();
+      announce("劫痕已保存。失败现在至少留下了一份能用的记录。");
+    });
+
+    $("#archive-search").addEventListener("input", renderArchive);
+    $("#scar-search").addEventListener("input", renderScars);
+    $("#copy-archive").addEventListener("click", () => {
+      const text = levels.filter((level) => state.progress[level.id].status === "completed")
+        .map((level) => `${level.publicName}｜${state.progress[level.id].artifactName}｜${state.progress[level.id].evidence}`).join("\n");
+      copyText(text || "尚无道果记录", "道果摘要已复制");
+    });
+    $("#copy-scars").addEventListener("click", () => {
+      const text = state.scars.map((scar) => `${scar.title}\n复现：${scar.context}\n原因：${scar.cause}\n修复：${scar.fix}\n复验：${scar.retest}`).join("\n\n");
+      copyText(text || "尚无劫痕记录", "劫痕摘要已复制");
+    });
+
+    $("#share-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = $("#share-name").value.trim() || "无名学徒";
+      state.profile.displayName = name;
+      persist();
+      const names = levels.filter((level) => state.progress[level.id].status === "completed").map((level) => level.publicName);
+      $("#share-output").textContent = `${name}｜九重登仙路 ${completedCount()}/9｜已通过：${names.join("、") || "尚未通关"}｜以道据验收，不以回答冒充交付。`;
+    });
+
+    $("#export-save").addEventListener("click", () => {
+      const blob = new Blob([global.GameStorage.exportJson(state)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = `九重登仙路-存档-${new Date().toISOString().slice(0, 10)}.json`;
+      anchor.click();
+      URL.revokeObjectURL(url);
+      $("#save-message").textContent = "存档已导出。文件只包含你主动填写的本地记录。";
+    });
+
+    $("#import-save").addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      try {
+        state = global.GameStorage.importJson(await file.text());
+        refreshAll();
+        $("#save-message").textContent = `存档导入成功，已读取 schema v${state.schemaVersion}。`;
+      } catch (error) {
+        const prefix = error.code ? `导入失败 [${error.code}]` : "导入失败";
+        $("#save-message").textContent = `${prefix}：${error.message}`;
+      }
+      event.target.value = "";
+    });
+
+    $("#show-reset").addEventListener("click", () => {
+      $("#reset-confirm").hidden = false;
+      $("#reset-phrase").focus();
+      $("#save-message").textContent = "重置会删除当前浏览器内的全部进度、道果和劫痕。建议先导出存档。";
+    });
+    $("#cancel-reset").addEventListener("click", () => {
+      $("#reset-confirm").hidden = true;
+      $("#reset-phrase").value = "";
+      $("#reset-save").disabled = true;
+      $("#show-reset").focus();
+    });
+    $("#reset-phrase").addEventListener("input", (event) => {
+      $("#reset-save").disabled = event.currentTarget.value.trim() !== "重置九重存档";
+    });
+    $("#reset-save").addEventListener("click", () => {
+      state = global.GameStorage.reset();
+      refreshAll();
+      $("#reset-confirm").hidden = true;
+      $("#reset-phrase").value = "";
+      $("#reset-save").disabled = true;
+      $("#save-message").textContent = "本地进度已重置。序章将在下次进入时重新出现。";
+      announce("本地进度已重置");
+    });
+  }
+
+  function refreshAll() {
+    updateProgress();
+    renderMap();
+    renderArchive();
+    renderCollection();
+    renderScars();
+    $("#share-name").value = state.profile.displayName || "";
+    $("#scar-realm").innerHTML = '<option value="">不关联关卡</option>' + levels.map((level) => `<option value="${level.id}">第${level.order}重 · ${escapeHtml(level.publicName)}</option>`).join("");
+  }
+
+  bindEvents();
+  refreshAll();
+  if (!state.onboarding.completed) global.setTimeout(() => openOnboarding(false), 180);
+})(window);
+
+</script>
+  </body>
 </html>

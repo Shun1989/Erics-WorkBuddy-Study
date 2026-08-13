@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-08-13T00:14:22.165Z",
+  "engine": {
+    "name": "语义视觉引擎",
+    "version": "1.0",
+    "policies": {
+      "factualScreenshot": "source-only",
+      "exactChart": "deterministic-only",
+      "criticalChinese": "html-svg-overlay-only"
+    }
+  },
+  "automaticChecks": "passed",
+  "errors": [],
+  "warnings": [],
+  "visualCards": 2
+}

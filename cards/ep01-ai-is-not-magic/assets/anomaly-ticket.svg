@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="560" viewBox="0 0 1400 560" role="img" aria-labelledby="title desc">
+  <title id="title">万工界异常工单</title>
+  <desc id="desc">工单状态显示已完成，进度停在百分之九十九，交付物无法使用</desc>
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#003A73"/><stop offset="1" stop-color="#001A33"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="1396" height="556" rx="34" fill="#001A33" stroke="#005BAC" stroke-width="3"/>
+  <g opacity=".16" stroke="#00C8FF"><path d="M0 80H1400M0 160H1400M0 240H1400M0 320H1400M0 400H1400M0 480H1400"/><path d="M100 0V560M300 0V560M500 0V560M700 0V560M900 0V560M1100 0V560M1300 0V560"/></g>
+  <rect x="75" y="70" width="1250" height="420" rx="26" fill="url(#panel)" stroke="#4A90D9" stroke-width="4"/>
+  <path d="M75 150H1325" stroke="#4A90D9" stroke-width="2"/>
+  <text x="115" y="123" fill="#CCE5FF" font-family="Microsoft YaHei, sans-serif" font-size="27">万工界异常工单 · 雾港办事处</text>
+  <rect x="1060" y="93" width="215" height="44" rx="22" fill="#00C8FF" opacity=".18" stroke="#00C8FF"/>
+  <text x="1168" y="124" fill="#00C8FF" font-family="Microsoft YaHei, sans-serif" font-size="24" font-weight="700" text-anchor="middle">状态：已完成</text>
+  <g font-family="Microsoft YaHei, sans-serif">
+    <text x="120" y="220" fill="#FFFFFF" font-size="34" font-weight="700">任务：生成一份可以交付的报告</text>
+    <text x="120" y="282" fill="#CCE5FF" font-size="26">系统回执：格式完整、语气坚定、结论流畅</text>
+    <text x="120" y="343" fill="#CCE5FF" font-size="26">现场回执：来源不明、无法复核、暂不能用</text>
+  </g>
+  <rect x="120" y="390" width="920" height="30" rx="15" fill="#002748" stroke="#005BAC"/>
+  <rect x="120" y="390" width="910" height="30" rx="15" fill="#00C8FF"/>
+  <text x="1060" y="420" fill="#FFFFFF" font-family="Roboto Mono, Microsoft YaHei, sans-serif" font-size="52" font-weight="800" text-anchor="end">99%</text>
+  <rect x="1120" y="350" width="155" height="100" rx="18" fill="#F56C2D"/>
+  <text x="1198" y="392" fill="#FFFFFF" font-family="Microsoft YaHei, sans-serif" font-size="23" font-weight="700" text-anchor="middle">交付状态</text>
+  <text x="1198" y="426" fill="#FFFFFF" font-family="Microsoft YaHei, sans-serif" font-size="27" font-weight="800" text-anchor="middle">无法使用</text>
+</svg>

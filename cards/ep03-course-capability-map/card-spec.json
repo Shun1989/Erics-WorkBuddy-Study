@@ -1,0 +1,16 @@
+{
+  "project":{"slug":"ep03-course-capability-map-landscape-universal","title":"EP03 WorkBuddy：课程训练能力地图","brand":"Miora","orientation":"landscape","platform":"universal","aspectRatio":"16:9","cardWidth":1920,"cardHeight":1080,"videoWidth":1920,"videoHeight":1080},
+  "semanticVisualEngine":{"name":"语义视觉引擎","version":"1.0","policies":{"factualScreenshot":"source-only","exactChart":"deterministic-only","criticalChinese":"html-svg-overlay-only"}},
+  "cards":[
+    {"id":1,"layout":"cover","eyebrow":"九重登仙路 · EP03","title":"WorkBuddy 不止聊天框","subtitle":"把任务、资料、工具和验收放进同一个 AI 工位","accent":"工位，不是许愿池","showRobot":true,"robotPose":"neutral","source":"input/source.md#来源-c-v6-项目定义"},
+    {"id":2,"layout":"quote","eyebrow":"证据边界","title":"先把数字放下","quote":"本集展示的是课程训练能力地图，不是当前官方功能数量清单。","attribution":"EP03 制作口径","note":"功能会更新；没有当前证据，就不把旧数字画成新事实。","showRobot":true,"robotPose":"thinking","source":"input/source.md#当前证据边界"},
+    {"id":3,"layout":"visual","eyebrow":"课程能力地图","title":"六类训练动作，围绕一个交付","subtitle":"分类来自课程内容，不代表官方功能分类",
+      "semanticVisual":{"assetType":"deterministic-diagram","renderer":"deterministic-svg","media":"assets/course-capability-map.svg","mediaAlt":"六类课程训练动作围绕真实任务和验收的能力地图","provenance":"input/source.md#来源-b-123-讲课程目录按原顺序归纳","generated":false,"modelTextAllowed":false,"motion":{"kind":"push-in","focus":"center","revealOrder":[]}},"showRobot":false,"source":"input/source.md#来源-b-123-讲课程目录按原顺序归纳"},
+    {"id":4,"layout":"list","eyebrow":"输入","title":"先把任务和资料说清楚","bullets":[{"heading":"任务","description":"目标、输入、限制和交付物写成工契"},{"heading":"文件","description":"把需要处理的文档和数据加入当前任务"},{"heading":"上下文","description":"补充对象、口径、范围和已有结论"}],"showRobot":false,"source":"input/source.md#来源-b-123-讲课程目录按原顺序归纳"},
+    {"id":5,"layout":"list","eyebrow":"输出","title":"结果必须落到真东西","bullets":[{"heading":"文档","description":"报告、纪要、清单和说明"},{"heading":"数据","description":"整理后的表格、统计和可视化"},{"heading":"流程","description":"可重复执行的模板、Skill 或自动任务"}],"showRobot":false,"source":"input/source.md#来源-b-123-讲课程目录按原顺序归纳"},
+    {"id":6,"layout":"visual","eyebrow":"从任务到道果","title":"聊天只是入口，交付才是终点","semanticVisual":{"assetType":"deterministic-diagram","renderer":"deterministic-svg","media":"assets/task-to-deliverable.svg","mediaAlt":"工契资料工具结果验收组成的交付链路","provenance":"input/source.md#来源-c-v6-项目定义","generated":false,"modelTextAllowed":false,"motion":{"kind":"pan-left","focus":"center","revealOrder":[]}},"showRobot":false,"source":"input/source.md#编辑边界"},
+    {"id":7,"layout":"comparison","eyebrow":"常见误区","title":"会点按钮，不等于会交付","left":{"label":"按钮收集家","items":["记住入口","追逐新功能","结果放着不检查"]},"right":{"label":"任务完成者","items":["先定义交付","只选必要工具","按验收门复核"]},"showRobot":true,"robotPose":"shrug","source":"input/source.md#来源-c-v6-项目定义"},
+    {"id":8,"layout":"steps","eyebrow":"第一次使用","title":"从一个低风险任务开始","bullets":[{"heading":"选小任务","description":"结果容易判断，失败不会造成损失"},{"heading":"准备资料","description":"只提供当前任务真正需要的输入"},{"heading":"定义结果","description":"写清格式、字段和完成标准"},{"heading":"人工验收","description":"检查来源、内容和是否可以使用"}],"showRobot":false,"source":"input/source.md#来源-c-v6-项目定义"},
+    {"id":9,"layout":"cover","eyebrow":"EP03 结论","title":"先建工位，别建祭坛","subtitle":"能力不是按钮数量，而是把真实任务稳定交付","accent":"下一步：分清知识与记忆","showRobot":true,"robotPose":"like","source":"input/source.md#编辑边界"}
+  ]
+}

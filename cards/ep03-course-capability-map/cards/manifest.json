@@ -1,0 +1,102 @@
+{
+  "project": {
+    "slug": "ep03-course-capability-map-landscape-universal",
+    "title": "EP03 WorkBuddy：课程训练能力地图",
+    "brand": "Miora",
+    "orientation": "landscape",
+    "platform": "universal",
+    "aspectRatio": "16:9",
+    "cardWidth": 1920,
+    "cardHeight": 1080,
+    "videoWidth": 1920,
+    "videoHeight": 1080
+  },
+  "orientation": "landscape",
+  "width": 1920,
+  "height": 1080,
+  "cards": [
+    {
+      "id": 1,
+      "file": "01.png",
+      "layout": "cover",
+      "robotPose": "neutral",
+      "semanticVisual": null
+    },
+    {
+      "id": 2,
+      "file": "02.png",
+      "layout": "quote",
+      "robotPose": "thinking",
+      "semanticVisual": null
+    },
+    {
+      "id": 3,
+      "file": "03.png",
+      "layout": "visual",
+      "robotPose": null,
+      "semanticVisual": {
+        "assetType": "deterministic-diagram",
+        "renderer": "deterministic-svg",
+        "provenance": "input/source.md#来源-b-123-讲课程目录按原顺序归纳",
+        "labels": [],
+        "motion": {
+          "kind": "push-in",
+          "focus": "center",
+          "revealOrder": []
+        }
+      }
+    },
+    {
+      "id": 4,
+      "file": "04.png",
+      "layout": "list",
+      "robotPose": null,
+      "semanticVisual": null
+    },
+    {
+      "id": 5,
+      "file": "05.png",
+      "layout": "list",
+      "robotPose": null,
+      "semanticVisual": null
+    },
+    {
+      "id": 6,
+      "file": "06.png",
+      "layout": "visual",
+      "robotPose": null,
+      "semanticVisual": {
+        "assetType": "deterministic-diagram",
+        "renderer": "deterministic-svg",
+        "provenance": "input/source.md#来源-c-v6-项目定义",
+        "labels": [],
+        "motion": {
+          "kind": "pan-left",
+          "focus": "center",
+          "revealOrder": []
+        }
+      }
+    },
+    {
+      "id": 7,
+      "file": "07.png",
+      "layout": "comparison",
+      "robotPose": "shrug",
+      "semanticVisual": null
+    },
+    {
+      "id": 8,
+      "file": "08.png",
+      "layout": "steps",
+      "robotPose": null,
+      "semanticVisual": null
+    },
+    {
+      "id": 9,
+      "file": "09.png",
+      "layout": "cover",
+      "robotPose": "like",
+      "semanticVisual": null
+    }
+  ]
+}

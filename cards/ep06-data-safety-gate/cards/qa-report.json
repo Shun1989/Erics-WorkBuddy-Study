@@ -1,0 +1,76 @@
+{
+  "checkedAt": "2026-08-13T00:14:23.091Z",
+  "orientation": "landscape",
+  "platform": "universal",
+  "semanticVisualEngine": {
+    "name": "语义视觉引擎",
+    "version": "1.0",
+    "policies": {
+      "factualScreenshot": "source-only",
+      "exactChart": "deterministic-only",
+      "criticalChinese": "html-svg-overlay-only"
+    }
+  },
+  "semanticVisualCards": 2,
+  "automaticChecks": "passed",
+  "visualReview": "passed",
+  "publishable": true,
+  "errors": [],
+  "warnings": [],
+  "files": [
+    {
+      "file": "01.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 496413
+    },
+    {
+      "file": "02.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 273531
+    },
+    {
+      "file": "03.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 386060
+    },
+    {
+      "file": "04.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 267966
+    },
+    {
+      "file": "05.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 378632
+    },
+    {
+      "file": "06.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 328780
+    },
+    {
+      "file": "07.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 414467
+    },
+    {
+      "file": "08.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 399958
+    },
+    {
+      "file": "09.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 490852
+    }
+  ]
+}

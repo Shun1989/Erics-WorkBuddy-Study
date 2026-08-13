@@ -1,0 +1,156 @@
+{
+  "project": {
+    "slug": "ep01-ai-is-not-magic-v2-absurd-landscape-universal",
+    "title": "EP01 AI 是什么：冷面荒诞版",
+    "brand": "Miora",
+    "orientation": "landscape",
+    "platform": "universal",
+    "aspectRatio": "16:9",
+    "cardWidth": 1920,
+    "cardHeight": 1080,
+    "videoWidth": 1920,
+    "videoHeight": 1080
+  },
+  "semanticVisualEngine": {
+    "name": "语义视觉引擎",
+    "version": "1.0",
+    "policies": {
+      "factualScreenshot": "source-only",
+      "exactChart": "deterministic-only",
+      "criticalChinese": "html-svg-overlay-only"
+    }
+  },
+  "cards": [
+    {
+      "id": 1,
+      "layout": "cover",
+      "eyebrow": "九重登仙路 · EP01",
+      "title": "AI 不是神秘魔法",
+      "subtitle": "雾港通告：会写漂亮废话，不等于会办事",
+      "accent": "赛博修仙 · 严禁把流畅当飞升",
+      "showRobot": true,
+      "robotPose": "neutral",
+      "source": "input/source.md#来源-e用户对-v1-的确认"
+    },
+    {
+      "id": 2,
+      "layout": "visual",
+      "eyebrow": "故事起点",
+      "title": "异常工单：永远卡在 99%",
+      "subtitle": "状态栏说完成，交付物说再想想",
+      "semanticVisual": {
+        "assetType": "deterministic-diagram",
+        "renderer": "deterministic-svg",
+        "media": "assets/anomaly-ticket.svg",
+        "mediaAlt": "状态显示已完成但交付物无法使用的虚构万工界异常工单",
+        "provenance": "input/source.md#来源-cv6-世界前史与三条法则",
+        "generated": false,
+        "modelTextAllowed": false,
+        "motion": {"kind": "push-in", "focus": "center", "revealOrder": []}
+      },
+      "showRobot": false,
+      "source": "input/source.md#v2-编辑边界"
+    },
+    {
+      "id": 3,
+      "layout": "list",
+      "eyebrow": "AI 已经在身边",
+      "title": "三个熟悉场景，三次祛魅",
+      "subtitle": "先看它在做什么，再决定要不要上香",
+      "bullets": [
+        {"heading": "推荐", "description": "从候选中排序；它没有读取你的灵魂"},
+        {"heading": "导航", "description": "按目标与条件算路线；它不会替你开车"},
+        {"heading": "语音助手", "description": "识别表达并响应；没说清就可能认真跑偏"}
+      ],
+      "showRobot": true,
+      "robotPose": "shrug",
+      "source": "input/source.md#来源-a-v5-ep-执行表--卷一认知篇"
+    },
+    {
+      "id": 4,
+      "layout": "visual",
+      "eyebrow": "最小工作模型",
+      "title": "AI 怎么参与一项工作",
+      "subtitle": "机器处理模式，人设定边界、检查结果",
+      "semanticVisual": {
+        "assetType": "deterministic-diagram",
+        "renderer": "deterministic-svg",
+        "media": "assets/ai-working-loop.svg",
+        "mediaAlt": "输入、模式处理、输出以及人工目标和验收组成的工作闭环",
+        "provenance": "input/source.md#来源-e用户对-v1-的确认",
+        "generated": false,
+        "modelTextAllowed": false,
+        "motion": {"kind": "push-in", "focus": "center", "revealOrder": []}
+      },
+      "showRobot": false,
+      "source": "input/source.md#来源-e用户对-v1-的确认"
+    },
+    {
+      "id": 5,
+      "layout": "comparison",
+      "eyebrow": "去神秘化",
+      "title": "把 AI 放回正确位置",
+      "left": {"label": "它能做", "items": ["从输入中寻找模式", "给出候选答案或产物", "在清楚边界内执行任务"]},
+      "right": {"label": "它不会自动做到", "items": ["理解你没说清的目标", "保证每个结果都正确", "替你承担决定的后果"]},
+      "showRobot": false,
+      "source": "input/source.md#v2-编辑边界"
+    },
+    {
+      "id": 6,
+      "layout": "steps",
+      "eyebrow": "第一次验收",
+      "title": "拿到结果，先问三句",
+      "bullets": [
+        {"heading": "输入是什么", "description": "资料、指令和上下文是否完整、可追溯？"},
+        {"heading": "怎么判断对错", "description": "有没有可观察的标准、反例和失败条件？"},
+        {"heading": "谁承担责任", "description": "谁做最终检查，谁决定使用或发布？"}
+      ],
+      "showRobot": true,
+      "robotPose": "thinking",
+      "source": "input/source.md#来源-cv6-世界前史与三条法则"
+    },
+    {
+      "id": 7,
+      "layout": "visual",
+      "eyebrow": "镜渊退货处",
+      "title": "漂亮废话，会被镜渊退货",
+      "subtitle": "缺来源、缺验收、缺责任人：请补齐三证再飞升",
+      "semanticVisual": {
+        "assetType": "deterministic-diagram",
+        "renderer": "deterministic-svg",
+        "media": "assets/mirror-abyss-return.svg",
+        "mediaAlt": "漂亮废话因缺少来源验收和责任人而被镜渊退回的隐喻图",
+        "provenance": "input/source.md#来源-cv6-世界前史与三条法则",
+        "generated": false,
+        "modelTextAllowed": false,
+        "motion": {"kind": "pan-left", "focus": "center", "revealOrder": []}
+      },
+      "showRobot": false,
+      "source": "input/source.md#来源-fv2-创作方向"
+    },
+    {
+      "id": 8,
+      "layout": "list",
+      "eyebrow": "本集道据",
+      "title": "记住万工界三条法则",
+      "bullets": [
+        {"heading": "无据不成法", "description": "说不清输入、过程和验收依据，就不算道果"},
+        {"heading": "一术必一验", "description": "每种方法都要有检查点和失败条件"},
+        {"heading": "人定其责", "description": "AI 可以执行，责任不能外包"}
+      ],
+      "showRobot": false,
+      "source": "input/source.md#来源-cv6-世界前史与三条法则"
+    },
+    {
+      "id": 9,
+      "layout": "cover",
+      "eyebrow": "EP01 结论",
+      "title": "AI 是助手，不是仙长",
+      "subtitle": "从一个低风险任务开始；保留输入，检查结果",
+      "accent": "下一步：看懂 Agent 的手脚",
+      "showRobot": true,
+      "robotPose": "like",
+      "source": "input/source.md#来源-dv6-统一领域词汇"
+    }
+  ]
+}

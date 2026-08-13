@@ -1,0 +1,16 @@
+{
+  "project":{"slug":"ep06-data-safety-gate-landscape-universal","title":"EP06 安全红线：什么能喂给 AI","brand":"Miora","orientation":"landscape","platform":"universal","aspectRatio":"16:9","cardWidth":1920,"cardHeight":1080,"videoWidth":1920,"videoHeight":1080},
+  "semanticVisualEngine":{"name":"语义视觉引擎","version":"1.0","policies":{"factualScreenshot":"source-only","exactChart":"deterministic-only","criticalChinese":"html-svg-overlay-only"}},
+  "cards":[
+    {"id":1,"layout":"cover","eyebrow":"九重登仙路 · EP06","title":"喂 AI 前，先过安检","subtitle":"发送键不是撤回键；来源、权限和敏感字段先查清","accent":"错潮关提示：镜渊不包退","showRobot":true,"robotPose":"shrug","source":"input/source.md#编辑边界"},
+    {"id":2,"layout":"visual","eyebrow":"数据安检门","title":"先分流，再决定能不能用","semanticVisual":{"assetType":"deterministic-diagram","renderer":"deterministic-svg","media":"assets/data-gate.svg","mediaAlt":"公开合成数据可用可识别数据先脱敏凭证和受限资料禁止输入","provenance":"input/source.md#来源-b-v6-发布和数据规则","generated":false,"modelTextAllowed":false,"motion":{"kind":"push-in","focus":"center","revealOrder":[]}},"showRobot":false,"source":"input/source.md#编辑边界"},
+    {"id":3,"layout":"list","eyebrow":"可直接使用","title":"三类输入风险较低","bullets":[{"heading":"公开资料","description":"来源清楚，允许公开使用"},{"heading":"虚构数据","description":"专为练习生成，不对应真人与真实项目"},{"heading":"授权素材","description":"使用范围明确，且不含敏感字段"}],"showRobot":false,"source":"input/source.md#编辑边界"},
+    {"id":4,"layout":"comparison","eyebrow":"先判断再上传","title":"能看到，不等于能提交","left":{"label":"可以进入任务","items":["用途与授权清楚","必要字段已最小化","结果可以安全保存"]},"right":{"label":"先停下来","items":["来源或权利不明","包含可识别个人信息","含内部或客户限制"]},"showRobot":false,"source":"input/source.md#来源-b-v6-发布和数据规则"},
+    {"id":5,"layout":"steps","eyebrow":"脱敏三步","title":"识别、替换、复扫","bullets":[{"heading":"识别字段","description":"找出身份、联系方式、金额和项目标识"},{"heading":"替换信息","description":"用掩码、区间或虚构代号降低可识别性"},{"heading":"再次扫描","description":"检查正文、附件、文件名和隐藏字段"}],"showRobot":false,"source":"input/source.md#来源-a-v5-ep-执行表"},
+    {"id":6,"layout":"visual","eyebrow":"完全虚构示例","title":"脱敏不是只打一个马赛克","subtitle":"示例记录不对应任何真实人物、账号或项目",
+      "semanticVisual":{"assetType":"deterministic-diagram","renderer":"deterministic-svg","media":"assets/redaction-example.svg","mediaAlt":"完全虚构记录从原始字段转换为脱敏字段的示例","provenance":"input/source.md#完全虚构演示数据","generated":false,"modelTextAllowed":false,"motion":{"kind":"pan-left","focus":"center","revealOrder":[]}},"showRobot":false,"source":"input/source.md#完全虚构演示数据"},
+    {"id":7,"layout":"list","eyebrow":"禁止输入","title":"这些内容不要进入 AI 任务","bullets":[{"heading":"认证凭证","description":"密码、密钥、Token、Cookie 和私钥"},{"heading":"真实客户资料","description":"合同、原始数据和未授权业务文件"},{"heading":"受限地址","description":"内网入口、本地敏感路径和账号信息"},{"heading":"真实个人信息","description":"未经授权的身份、联系方式和行为记录"}],"showRobot":false,"source":"input/source.md#来源-b-v6-发布和数据规则"},
+    {"id":8,"layout":"steps","eyebrow":"发布前安检","title":"最后再过四道门","bullets":[{"heading":"来源确认","description":"知道素材来自哪里、是否允许公开"},{"heading":"敏感扫描","description":"正文、附件和文件名一起检查"},{"heading":"结果复核","description":"确认输出没有重新暴露敏感内容"},{"heading":"人工批准","description":"关键发布必须由 Eric 最终确认"}],"showRobot":false,"source":"input/source.md#来源-b-v6-发布和数据规则"},
+    {"id":9,"layout":"cover","eyebrow":"EP06 结论","title":"先脱敏，再动手","subtitle":"能不提供就不提供；必须使用时，只保留完成任务所需信息","accent":"发送键不是忘川水","showRobot":true,"robotPose":"like","source":"input/source.md#编辑边界"}
+  ]
+}

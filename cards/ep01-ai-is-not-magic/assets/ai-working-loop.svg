@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="560" viewBox="0 0 1400 560" role="img" aria-labelledby="title desc">
+  <title id="title">AI 最小工作闭环</title>
+  <desc id="desc">输入、模式处理、输出组成工作链路，人负责目标边界和验收</desc>
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#003A73" stop-opacity=".95"/><stop offset="1" stop-color="#001A33" stop-opacity=".95"/></linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#00C8FF"/></marker>
+  </defs>
+  <rect x="2" y="2" width="1396" height="556" rx="34" fill="#001A33" stroke="#005BAC" stroke-width="3"/>
+  <g opacity=".18" stroke="#00C8FF"><path d="M0 80H1400M0 160H1400M0 240H1400M0 320H1400M0 400H1400M0 480H1400"/><path d="M100 0V560M300 0V560M500 0V560M700 0V560M900 0V560M1100 0V560M1300 0V560"/></g>
+  <rect x="70" y="170" width="330" height="210" rx="28" fill="url(#panel)" stroke="#4A90D9" stroke-width="4"/>
+  <rect x="535" y="170" width="330" height="210" rx="28" fill="url(#panel)" stroke="#00C8FF" stroke-width="5" filter="url(#glow)"/>
+  <rect x="1000" y="170" width="330" height="210" rx="28" fill="url(#panel)" stroke="#4A90D9" stroke-width="4"/>
+  <path d="M410 275H515" stroke="#00C8FF" stroke-width="8" marker-end="url(#arrow)"/><path d="M875 275H980" stroke="#00C8FF" stroke-width="8" marker-end="url(#arrow)"/>
+  <g fill="#FFFFFF" font-family="Microsoft YaHei, sans-serif" text-anchor="middle">
+    <text x="235" y="255" font-size="48" font-weight="700">输入</text><text x="235" y="315" font-size="28" fill="#CCE5FF">资料 · 指令 · 上下文</text>
+    <text x="700" y="255" font-size="48" font-weight="700">模式处理</text><text x="700" y="315" font-size="28" fill="#CCE5FF">识别关系 · 生成候选</text>
+    <text x="1165" y="255" font-size="48" font-weight="700">输出</text><text x="1165" y="315" font-size="28" fill="#CCE5FF">答案 · 文件 · 操作</text>
+  </g>
+  <path d="M220 120C390 35 1010 35 1180 120" fill="none" stroke="#F56C2D" stroke-width="5" stroke-dasharray="14 12"/>
+  <circle cx="220" cy="120" r="10" fill="#F56C2D"/><circle cx="1180" cy="120" r="10" fill="#F56C2D"/>
+  <text x="700" y="78" fill="#F56C2D" font-family="Microsoft YaHei, sans-serif" text-anchor="middle" font-size="30" font-weight="700">人设定目标与边界</text>
+  <path d="M1180 430C1010 525 390 525 220 430" fill="none" stroke="#F56C2D" stroke-width="5" stroke-dasharray="14 12" marker-end="url(#arrow)"/>
+  <text x="700" y="518" fill="#F56C2D" font-family="Microsoft YaHei, sans-serif" text-anchor="middle" font-size="30" font-weight="700">人检查结果并承担责任</text>
+</svg>

@@ -1,0 +1,16 @@
+{
+  "project":{"slug":"ep04-memory-not-mind-reading-landscape-universal","title":"EP04 记忆：为什么越用越懂你","brand":"Miora","orientation":"landscape","platform":"universal","aspectRatio":"16:9","cardWidth":1920,"cardHeight":1080,"videoWidth":1920,"videoHeight":1080},
+  "semanticVisualEngine":{"name":"语义视觉引擎","version":"1.0","policies":{"factualScreenshot":"source-only","exactChart":"deterministic-only","criticalChinese":"html-svg-overlay-only"}},
+  "cards":[
+    {"id":1,"layout":"cover","eyebrow":"九重登仙路 · EP04","title":"记忆不是读心术","subtitle":"它能利用你明确留下的上下文，不能猜中没说的话","accent":"藏识库规定：猜测不得入档","showRobot":true,"robotPose":"neutral","source":"input/source.md#编辑边界"},
+    {"id":2,"layout":"quote","eyebrow":"藏识库事故","title":"小序又失忆了","quote":"问它昨天做了什么，它翻出一条未经核验的旧猜测，并自信地读了三遍。","attribution":"万工界 · 错记忆事件","note":"健忘不是最大风险；把猜测记成事实才是。","showRobot":true,"robotPose":"shrug","source":"input/source.md#编辑边界"},
+    {"id":3,"layout":"comparison","eyebrow":"先分清两个概念","title":"知识是参考书，记忆是经验笔记","left":{"label":"知识","items":["相对静态的资料","按来源检索引用","需要版本与出处"]},"right":{"label":"记忆","items":["随使用动态更新","记录事实与偏好","需要检查和纠正"]},"showRobot":false,"source":"input/source.md#来源-c-ai-agent-完全指南--记忆与知识"},
+    {"id":4,"layout":"visual","eyebrow":"可管理记忆","title":"记忆怎样进入下一次任务","semanticVisual":{"assetType":"deterministic-diagram","renderer":"deterministic-svg","media":"assets/memory-loop.svg","mediaAlt":"当前任务的已确认事实和偏好进入可管理记忆并服务未来任务","provenance":"input/source.md#来源-b-知识库-3-步上手按原文顺序摘录","generated":false,"modelTextAllowed":false,"motion":{"kind":"pan-left","focus":"center","revealOrder":[]}},"showRobot":false,"source":"input/source.md#来源-c-ai-agent-完全指南--记忆与知识"},
+    {"id":5,"layout":"list","eyebrow":"适合记","title":"留下稳定、可复用的信息","bullets":[{"heading":"固定偏好","description":"常用格式、语气、命名和交付习惯"},{"heading":"确认事实","description":"经过核验且后续任务仍会使用的信息"},{"heading":"有效经验","description":"失败原因、修正方法和复验结果"}],"showRobot":false,"source":"input/source.md#来源-c-ai-agent-完全指南--记忆与知识"},
+    {"id":6,"layout":"list","eyebrow":"不该记","title":"这些内容不要写进长期记忆","bullets":[{"heading":"临时猜测","description":"尚未核验的推断不能升级成事实"},{"heading":"敏感内容","description":"凭证、隐私和受限资料不进入记忆"},{"heading":"过期结论","description":"版本变化后应更新或删除旧信息"}],"showRobot":false,"source":"input/source.md#编辑边界"},
+    {"id":7,"layout":"visual","eyebrow":"错记忆事件","title":"一条错记忆，三次自信复读","subtitle":"错误会随上下文传播；越流畅，不代表越正确",
+      "semanticVisual":{"assetType":"deterministic-diagram","renderer":"deterministic-svg","media":"assets/memory-pollution.svg","mediaAlt":"未经核验的猜测进入记忆后在未来任务中被重复使用","provenance":"input/source.md#编辑边界","generated":false,"modelTextAllowed":false,"motion":{"kind":"push-in","focus":"center","revealOrder":[]}},"showRobot":false,"source":"input/source.md#编辑边界"},
+    {"id":8,"layout":"steps","eyebrow":"记忆验收门","title":"每条记忆检查四件事","bullets":[{"heading":"有来源","description":"能说明这条信息从哪里得来"},{"heading":"有日期","description":"知道何时形成、是否可能过期"},{"heading":"可纠正","description":"新证据出现时能更新旧结论"},{"heading":"可删除","description":"不再适用或不应保存时立即移除"}],"showRobot":false,"source":"input/source.md#来源-b-知识库-3-步上手按原文顺序摘录"},
+    {"id":9,"layout":"cover","eyebrow":"EP04 结论","title":"让它记笔记，别写族谱","subtitle":"知识要有来源，记忆要能管理，任务要给当前上下文","accent":"下一步：工具与权限边界","showRobot":true,"robotPose":"like","source":"input/source.md#来源-d-v6-领域词汇"}
+  ]
+}
