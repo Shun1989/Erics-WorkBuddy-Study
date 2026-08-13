@@ -18,6 +18,13 @@
 | 社区投稿 | queued | v1.0.0 后推进 |
 | 官方 PR | queued | v1.0.0 后推进 |
 
+## v1.0.0 发布证据
+
+- 版本标签：[`v1.0.0`](https://github.com/Shun1989/Erics-WorkBuddy-Study/releases/tag/v1.0.0)
+- 发布提交：`123ee554eb2f347171267d16ce297b76e2dfa30b`
+- GitHub Actions：[`Verify release` run 31654477426](https://github.com/Shun1989/Erics-WorkBuddy-Study/actions/runs/31654477426)，结论 `success`
+- 发布后公共 API 核验：仓库、标签、Release 与工作流均可公开读取。
+
 ## 商业与许可边界
 
 - 前三重“启机、立契、藏识”完整免费。

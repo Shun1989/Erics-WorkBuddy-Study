@@ -7,9 +7,9 @@
 - [x] EP01–EP06 共 54 张横版卡片纳入仓库并复验。
 - [x] 最小 GitHub Actions 建立。
 - [x] 本地 `node scripts/verify-release.mjs` 通过。
-- [ ] GitHub Actions 通过。
-- [ ] `v1.0.0` 标签与 GitHub Release 发布。
-- [ ] 发布后重新核验仓库可见性、标签、Release 与工作流结果。
+- [x] GitHub Actions 通过（run `31654477426`）。
+- [x] `v1.0.0` 标签与 GitHub Release 发布。
+- [x] 发布后重新核验仓库可见性、标签、Release 与工作流结果。
 
 ## 明确不在 v1.0.0 范围
 
