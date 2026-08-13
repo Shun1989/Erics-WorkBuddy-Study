@@ -1,0 +1,32 @@
+name: 缺陷报告
+description: 报告可复现的网页、游戏、内容或素材问题
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: 请勿粘贴凭证、个人信息或真实业务数据。敏感问题请按 SECURITY.md 私密报告。
+  - type: textarea
+    id: problem
+    attributes:
+      label: 问题
+      description: 实际发生了什么？
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      description: 使用虚构或脱敏数据描述最小复现步骤。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期结果
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 版本或提交
+      placeholder: 例如 v1.0.0 或提交 SHA

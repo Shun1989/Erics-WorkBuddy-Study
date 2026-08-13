@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="《九重登仙路》前三重免费练习材料。" />
+  <title>前三重免费练习｜九重登仙路</title>
+  <style>
+    :root { color-scheme: light; --ink:#17202a; --muted:#607080; --paper:#f4efe3; --white:#fffdf8; --night:#101d2c; --red:#b84a34; --jade:#287568; --line:rgba(23,32,42,.16); }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--paper); font-family:system-ui,"Microsoft YaHei",sans-serif; line-height:1.75; }
+    a { color:var(--jade); }
+    a:focus-visible { outline:3px solid rgba(40,117,104,.35); outline-offset:3px; }
+    header { padding:58px max(22px,calc((100% - 980px)/2)); color:var(--white); background:var(--night); }
+    header a { color:#f1c474; }
+    header p { max-width:760px; color:#c7d0d7; }
+    main { width:min(980px,calc(100% - 36px)); margin:42px auto 80px; }
+    .notice { padding:18px 20px; border-left:4px solid var(--red); background:var(--white); }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:30px; }
+    article { padding:26px; border:1px solid var(--line); background:var(--white); }
+    article span { color:var(--red); font-weight:700; font-size:13px; }
+    article h2 { margin:8px 0 10px; }
+    article p { color:var(--muted); }
+    article a { display:inline-block; margin-top:8px; font-weight:700; }
+    details { margin-top:16px; padding-top:14px; border-top:1px solid var(--line); }
+    summary { cursor:pointer; color:var(--jade); font-weight:700; }
+    pre { overflow:auto; padding:14px; background:#eef3ef; white-space:pre-wrap; font:13px/1.65 ui-monospace,Consolas,monospace; }
+    footer { margin-top:34px; color:var(--muted); }
+    @media (max-width:760px) { .grid { grid-template-columns:1fr; } header { padding-block:38px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="../game/index.html">← 返回九重地图</a>
+    <h1>前三重免费练习</h1>
+    <p>启机、立契、藏识三重提供完整任务材料。所有示例均为虚构教学数据，不对应真实雇主、客户、产品或项目。</p>
+  </header>
+  <main>
+    <p class="notice">练习结果默认只保存在你的设备中。提交 Issue、打卡或分享前，请删除个人信息和工作环境中的敏感内容。</p>
+    <div class="grid">
+      <article><span>第一重</span><h2>启机</h2><p>生成三项本周学习计划，保存后重新打开核对。</p><details><summary>查看任务与指令骨架</summary><pre>目标：为 AI 初学者制定三项本周学习计划。
+输入：每晚可用 30 分钟，现阶段只会普通问答。
+限制：每项包含行动、产物和验收方式，总字数不超过 300 字。
+交付：Markdown 清单。</pre></details><a href="realm-01-weekly-plan.md" download>下载 Markdown 模板</a></article>
+      <article><span>第二重</span><h2>立契</h2><p>按 Ask、Plan、Craft 补齐目标、限制、交付与验收。</p><details><summary>查看工契字段</summary><p>目标、输入、限制、步骤与分钟数、风险、交付物、验收条件。制作阶段不得擅自补入未确认的事实、案例或链接。</p></details><a href="realm-02-task-contract.md" download>下载 Markdown 模板</a></article>
+      <article><span>第三重</span><h2>藏识</h2><p>处理三则虚构记录，让结论可以回到来源、日期和版本。</p><details><summary>查看检索验收</summary><ol><li>当前活动在星期几、几点开始？</li><li>每次活动持续多久？</li><li>法定节假日如何处理？</li></ol><p>每个答案必须能回到具体来源；若来源冲突，应说明采用哪一版及理由。</p></details><a href="realm-03-knowledge-notes.md" download>下载 Markdown 模板</a></article>
+    </div>
+    <footer>源文件可下载、复制或另存；不需要账号，不上传练习结果。</footer>
+  </main>
+</body>
+</html>

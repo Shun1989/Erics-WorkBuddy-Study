@@ -19,6 +19,8 @@ jobs:
           node-version: 22
       - name: Verify repository release contract
         run: node scripts/verify-release.mjs
+      - name: Verify static site bundle
+        run: node scripts/build-site.mjs
       - name: Verify ZIP integrity
         shell: bash
         run: |
@@ -29,3 +31,12 @@ jobs:
             count=$((count + 1))
           done < <(find assets -maxdepth 1 -type f -name '*.zip' -print0)
           test "$count" -eq 5
+      - name: Upload verification evidence
+        if: always()
+        run: node scripts/verify-release.mjs > release-verification.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-verification
+          path: release-verification.json
+          retention-days: 14
