@@ -16,7 +16,14 @@ const mimeTypes = new Map([
 ]);
 
 const server = http.createServer((request, response) => {
-  const pathname = decodeURIComponent(new URL(request.url, `http://${request.headers.host}`).pathname);
+  let pathname;
+  try {
+    const host = request.headers.host || "127.0.0.1";
+    pathname = decodeURIComponent(new URL(request.url || "/", `http://${host}`).pathname);
+  } catch {
+    response.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" }).end("Bad request");
+    return;
+  }
   const requested = pathname.endsWith("/") ? `${pathname}index.html` : pathname;
   const target = path.resolve(root, `.${requested}`);
 
