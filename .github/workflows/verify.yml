@@ -21,6 +21,8 @@ jobs:
         run: node scripts/verify-release.mjs
       - name: Verify static site bundle
         run: node scripts/build-site.mjs
+      - name: Verify local preview server
+        run: node scripts/serve-local.test.mjs
       - name: Verify ZIP integrity
         shell: bash
         run: |
