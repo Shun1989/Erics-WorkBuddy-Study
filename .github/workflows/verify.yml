@@ -21,6 +21,10 @@ jobs:
         run: node scripts/verify-release.mjs
       - name: Verify static site bundle
         run: node scripts/build-site.mjs
+      - name: Verify game state and save recovery
+        run: |
+          node scripts/game-state.test.mjs
+          node scripts/game-state.test.mjs _site/game/index.html
       - name: Verify local preview server
         run: node scripts/serve-local.test.mjs
       - name: Verify ZIP integrity
